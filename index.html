@@ -775,7 +775,7 @@
             font-size: 1.5rem;
             font-weight: 400;
             color: var(--ink);
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             line-height: 1.2;
         }
 
@@ -1490,7 +1490,6 @@
 </head>
 <body>
 
-    <!-- MOBILE NAV OVERLAY -->
     <div class="mobile-nav-overlay" id="mobileNav">
         <button class="mobile-close" onclick="closeMobileNav()">✕</button>
         <a onclick="goTo('home');closeMobileNav()">Domov</a>
@@ -1499,7 +1498,6 @@
         <a onclick="goTo('contact');closeMobileNav()">Kontakt</a>
     </div>
 
-    <!-- NAV -->
     <nav id="mainNav">
         <span class="logo" onclick="goTo('home')">Pekáreň <em>Alea</em></span>
         <ul>
@@ -1520,7 +1518,6 @@
         </div>
     </nav>
 
-    <!-- ═══════════════════════════ HOME PAGE ═══════════════════════════ -->
     <div class="page active" id="page-home">
 
         <section class="hero" id="domov">
@@ -1579,7 +1576,6 @@
             </div>
         </div>
 
-        <!-- HOME MENU PREVIEW -->
         <div class="home-menu-preview">
             <div class="section-header">
                 <div class="section-header-left">
@@ -1624,7 +1620,6 @@
             </div>
         </div>
 
-        <!-- GALLERY -->
         <div class="gallery-section">
             <div class="gallery-header">
                 <p class="eyebrow reveal">Galéria</p>
@@ -1650,7 +1645,6 @@
             </div>
         </div>
 
-        <!-- REVIEWS -->
         <div class="reviews-section">
             <p class="eyebrow">Google hodnotenia</p>
             <h2 class="reveal">Čo o nás hovorí<br>Žilina</h2>
@@ -1691,11 +1685,7 @@
             </div>
         </div>
 
-    </div><!-- /page-home -->
-
-
-    <!-- ═══════════════════════════ MENU PAGE ═══════════════════════════ -->
-    <div class="page" id="page-menu">
+    </div><div class="page" id="page-menu">
 
         <div class="menu-page-hero">
             <p class="eyebrow">Naša ponuka</p>
@@ -1703,7 +1693,6 @@
             <p>Vyše 40 druhov čerstvého pečiva, chlebov a sladkostí. Všetko ručne pripravované od roku 2006.</p>
         </div>
 
-        <!-- TABS -->
         <div class="menu-tabs" id="menuTabs">
             <button class="menu-tab active" data-cat="all">Všetko</button>
             <button class="menu-tab" data-cat="chlieb">🍞 Chlieb</button>
@@ -1714,33 +1703,27 @@
 
         <div class="menu-content">
 
-            <!-- ALL -->
             <div class="menu-category active" id="cat-all">
-                <!-- rendered by JS -->
-            </div>
+                </div>
 
-            <!-- CHLIEB -->
             <div class="menu-category" id="cat-chlieb">
                 <h2 class="menu-category-title">Chlieb</h2>
                 <p class="menu-category-subtitle">Pečený každé ráno z poctivých surovín a overených receptúr</p>
                 <div class="menu-items-grid" id="grid-chlieb"></div>
             </div>
 
-            <!-- PECIVO -->
             <div class="menu-category" id="cat-pecivo">
                 <h2 class="menu-category-title">Ranné pečivo</h2>
                 <p class="menu-category-subtitle">Čerstvé rožky, žemle a pletenky ideálne na každé ráno</p>
                 <div class="menu-items-grid" id="grid-pecivo"></div>
             </div>
 
-            <!-- SLADKE -->
             <div class="menu-category" id="cat-sladke">
                 <h2 class="menu-category-title">Sladká sekcia</h2>
                 <p class="menu-category-subtitle">Koláče, šatôčky a záviny podľa tradičných receptúr</p>
                 <div class="menu-items-grid" id="grid-sladke"></div>
             </div>
 
-            <!-- SPECIALITY -->
             <div class="menu-category" id="cat-speciality">
                 <h2 class="menu-category-title">Špeciality</h2>
                 <p class="menu-category-subtitle">Špeciálne druhy pečiva a bagety pre náročnejší vkus</p>
@@ -1756,11 +1739,7 @@
             </button>
         </div>
 
-    </div><!-- /page-menu -->
-
-
-    <!-- ═══════════════════════════ ORDER PAGE ═══════════════════════════ -->
-    <div class="page" id="page-order">
+    </div><div class="page" id="page-order">
 
         <div class="order-page-hero">
             <p class="eyebrow">Online objednávka</p>
@@ -1769,7 +1748,6 @@
         </div>
 
         <div class="order-layout">
-            <!-- CART -->
             <div class="order-cart-panel">
                 <h2>Položky objednávky</h2>
 
@@ -1806,7 +1784,6 @@
                 </div>
             </div>
 
-            <!-- FORM -->
             <div class="order-form-panel">
                 <div id="orderFormWrap">
                     <h2>Kontaktné údaje</h2>
@@ -1877,11 +1854,7 @@
             </div>
         </div>
 
-    </div><!-- /page-order -->
-
-
-    <!-- ═══════════════════════════ CONTACT PAGE ═══════════════════════════ -->
-    <div class="page" id="page-contact">
+    </div><div class="page" id="page-contact">
 
         <div class="contact-page-hero">
             <p class="eyebrow">Navštívte nás</p>
@@ -1947,7 +1920,6 @@
             </div>
         </div>
 
-        <!-- CONTACT MESSAGE FORM -->
         <div class="contact-form-section">
             <div class="contact-form-inner">
                 <div class="contact-form-text">
@@ -1985,17 +1957,13 @@
                     </button>
 
                     <div id="contactSuccess" style="display:none;margin-top:24px;padding:20px;background:var(--cream-deep);border-left:3px solid var(--gold);border-radius:2px">
-                        <p style="font-size:0.88rem;color:var(--ink)">✓ &nbsp;Správa odoslaná! Ozveme sa vám čo najskôr.</p>
+                        <p style="font-size:0.88rem;color:var(--ink)">✓  Správa odoslaná! Ozveme sa vám čo najskôr.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-    </div><!-- /page-contact -->
-
-
-    <!-- FOOTER -->
-    <footer>
+    </div><footer>
         <span class="footer-logo" onclick="goTo('home')">Pekáreň <em>Alea</em></span>
         <p>© 2026 Pekáreň Alea Žilina · Horný Val 42/22 · +421 908 790 850</p>
         <div class="footer-socials">
@@ -2015,113 +1983,127 @@
             {
                 id: 'chlieb-1',
                 name: 'Kváskový chlieb',
-                desc: 'Chrumkavá kôrka a nadýchaný stred podľa tradičnej receptúry. Pečený každé ráno z prírodného kvasu.',
+                desc: 'Chrumkavá kôrka a nadýchaný stred. Podobný slávnemu "San Francisco sourdough", pečený každé ráno z prírodného kvasu.',
                 price: 3.20,
                 badge: 'Bestseller',
-                img: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=600'
+                img: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=600',
+                videoLink: 'https://maps.app.goo.gl/tTkRxN7AU9YEPUeF8'
             },
             {
                 id: 'chlieb-2',
                 name: 'Ražný chlieb',
-                desc: 'Tmavý chlieb s charakteristickou chuťou ražnej múky. Dlho vydrží čerstvý a výborne sa hodí k syrom.',
+                desc: 'Tmavý chlieb, ktorý je hutným stredoeurópskym bratrancom nemeckého pumpernickelu. Dlho vydrží čerstvý.',
                 price: 2.80,
-                img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600'
+                img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600',
+                videoLink: 'https://maps.app.goo.gl/tUtkbmpqSsx3mK2FA'
             },
             {
                 id: 'chlieb-3',
                 name: 'Celozrnný chlieb',
-                desc: 'Plný vlákniny, semiačok a zdravej chuti. Pre tých, čo dbajú o zdravý životný štýl bez kompromisov na chuť.',
+                desc: 'Plný vlákniny a semiačok. Inšpirovaný ťažkými škandinávskymi chlebmi (rugbrød) pre zdravý životný štýl.',
                 price: 3.40,
-                img: 'https://images.unsplash.com/photo-1600398138360-766e1a2a0ef8?q=80&w=600'
+                img: 'https://images.unsplash.com/photo-1600398138360-766e1a2a0ef8?q=80&w=600',
+                videoLink: 'https://maps.app.goo.gl/YXH3H3UHYomCLFXy8'
             },
             {
                 id: 'chlieb-4',
                 name: 'Špaldový chlieb',
-                desc: 'Špaldová múka pre ľahšiu stráviteľnosť a jemnú orieškovú chuť. Oblíbený medzi našimi stálymi zákazníkmi.',
+                desc: 'Ľahšie stráviteľná alternatíva s orieškovou chuťou, pripomínajúca klasický francúzsky vidiecky chlieb (pain de campagne).',
                 price: 3.60,
                 badge: 'Novinka',
-                img: 'https://images.unsplash.com/photo-1586444248879-bc604bc77b22?q=80&w=600'
+                img: 'https://images.unsplash.com/photo-1586444248879-bc604bc77b22?q=80&w=600',
+                videoLink: 'https://maps.app.goo.gl/SZeAWaoUpj6goZ9t5'
             }
         ],
         pecivo: [
             {
                 id: 'pecivo-1',
                 name: 'Klasické rožky',
-                desc: 'Tradičné chrumkavé rožky pečené každé ráno. Jemné vnútri, zlatohnedé na povrchu.',
+                desc: 'Historický predchodca slávneho rakúskeho "Kipferl" a francúzskeho croissantu. Jemné vnútri, zlatohnedé na povrchu.',
                 price: 0.20,
-                img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600'
+                img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600',
+                videoLink: 'https://maps.app.goo.gl/Sfhunp2EDKBpwoSBA'
             },
             {
                 id: 'pecivo-2',
                 name: 'Žemle',
-                desc: 'Mäkké a vláčne okrúhle žemle, ideálne na sendviče alebo jednoducho s maslom a medom.',
+                desc: 'Mäkké a vláčne, naša lokálna odpoveď na francúzsku briošku (brioche) alebo americkú hamburgerovú žemľu.',
                 price: 0.30,
-                img: 'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?q=80&w=600'
+                img: 'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?q=80&w=600',
+                videoLink: 'https://maps.app.goo.gl/LdRcvGjcV62zcGy66'
             },
             {
                 id: 'pecivo-3',
                 name: 'Pletenky',
-                desc: 'Pletené ručne, zlatohnedé, chrumkavé. Posypané makom alebo sezamom podľa vašej chuti.',
+                desc: 'Príbuzné svetoznámej židovskej "challah" alebo švajčiarskej vianočke "Zopf". Pletené ručne, posypané makom.',
                 price: 0.35,
                 badge: 'Obľúbené',
-                img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=600'
+                img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=600',
+                videoLink: 'https://maps.app.goo.gl/YmHC7GswRuR37DYR9'
             },
             {
                 id: 'pecivo-4',
                 name: 'Maslový croissant',
-                desc: 'Lístkové cesto plnené kvalitným maslom. Vrstvená štruktúra a zlatá kôrka, pečený každé ráno.',
+                desc: 'Pravá francúzska klasika z lístkového cesta plnená kvalitným maslom. Vrstvená štruktúra a zlatá kôrka.',
                 price: 0.90,
-                img: 'https://images.unsplash.com/photo-1523294587484-bae6cc870010?q=80&w=600'
+                img: 'https://images.unsplash.com/photo-1523294587484-bae6cc870010?q=80&w=600',
+                videoLink: 'https://maps.app.goo.gl/SP7dWmh7F3ExCUrW8'
             },
             {
                 id: 'pecivo-5',
                 name: 'Maslový rožok',
-                desc: 'Jemné maslové pečivo so zlatou kôrkou. Výborne sa hodí k raňajkovému stolu.',
+                desc: 'Bohatšie maslové pečivo. Krásne prepojenie tradičného slovenského tvaru so štruktúrou sladkého brioche.',
                 price: 0.45,
-                img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=600'
+                img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=600',
+                videoLink: 'https://maps.app.goo.gl/rEUCu8CGJ1aKtpyd9'
             },
             {
                 id: 'pecivo-6',
                 name: 'Grahamový rožok',
-                desc: 'Rožok z celozrnnej grahamovej múky s výraznou chuťou a vyššou nutričnou hodnotou.',
+                desc: 'Celozrnný variant, podobný štruktúre rustikálnych talianskych alebo francúzskych celozrnných bagiet.',
                 price: 0.35,
-                img: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=600'
+                img: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=600',
+                videoLink: 'https://maps.app.goo.gl/N6R6gvWYJvA4Wpow7'
             }
         ],
         sladke: [
             {
                 id: 'sladke-1',
                 name: 'Moravský koláč',
-                desc: 'Plnený makovým, tvarohovým alebo jablkovým plnivom. Klasika, ktorá nikdy nesklamie.',
+                desc: 'Sladká klasika s tvarohom. Vo svete (najmä v Texase) preslávená pod názvom "Texas Kolaches".',
                 price: 0.80,
                 badge: 'Bestseller',
-                img: 'https://images.unsplash.com/photo-1608686207856-001b95cf60ca?q=80&w=600'
+                img: 'https://images.unsplash.com/photo-1608686207856-001b95cf60ca?q=80&w=600',
+                videoLink: 'https://maps.app.goo.gl/qejYYVJDUNDt5juWA,https://maps.app.goo.gl/iGYEQiUkyAKNo8fU8'
             },
             {
                 id: 'sladke-2',
                 name: 'Šatôčka s džemom',
-                desc: 'Lístkové cesto plnené domácim slivkovým alebo marhuľovým džemom. Sladká pochúťka na celý deň.',
+                desc: 'Pripomína známe francúzske "chausson aux pommes", no naše lístkové cesto ukrýva poctivý lokálny džem.',
                 price: 0.70,
-                img: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?q=80&w=600'
+                img: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?q=80&w=600',
+                videoLink: 'https://maps.app.goo.gl/txmM74eRtefURrXc7'
             },
             {
                 id: 'sladke-3',
                 name: 'Závin s makom',
-                desc: 'Tradičný závin plnený mletým makom, cukrom a citrónovovou kôrou. Vôňa z detstva.',
+                desc: 'Tradičný makovník, veľmi blízky príbuzný obľúbenému nemeckému "Mohnstrudel".',
                 price: 2.50,
-                img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=600'
+                img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=600',
+                videoLink: 'https://maps.app.goo.gl/pFNvDM3bzuxZEp6T9'
             },
             {
                 id: 'sladke-4',
                 name: 'Závin s jablkami',
-                desc: 'Šťavnaté jablká so škoricou a hrozienkami v tenkom lístkovom ceste. Poctivá domáca chuť.',
+                desc: 'Slovenská odpoveď na celosvetovo preslávený rakúsky "Apfelstrudel". Šťavnaté jablká, škorica a hrozienka.',
                 price: 2.50,
-                img: 'https://images.unsplash.com/photo-1529765860038-41ccf3ce6519?q=80&w=600'
+                img: 'https://images.unsplash.com/photo-1529765860038-41ccf3ce6519?q=80&w=600',
+                videoLink: 'https://maps.app.goo.gl/bjwBqNyttA3EpqGt6'
             },
             {
                 id: 'sladke-5',
                 name: 'Škoricový slimák',
-                desc: 'Mäkký závin s maslom, trstinových cukrom a škoricou. Teplý z pece — absolútna dokonalosť.',
+                desc: 'Známy aj ako "Cinnamon Roll" alebo švédsky "Kanelbulle". Teplý z pece s maslom a škoricou.',
                 price: 1.20,
                 badge: 'Novinka',
                 img: 'https://images.unsplash.com/photo-1509365465985-25d11c17e812?q=80&w=600'
@@ -2129,7 +2111,7 @@
             {
                 id: 'sladke-6',
                 name: 'Tvarohový koláč',
-                desc: 'Jemný koláč s hladkým tvarohovým krémom na krehkom základe. Ľahká a lahodná pochúťka.',
+                desc: 'Lokálna, jemnejšia verzia západného pečeného "Cheesecake". Hladký tvarohový krém na krehkom základe.',
                 price: 1.50,
                 img: 'https://images.unsplash.com/photo-1481391319762-47dff72954d9?q=80&w=600'
             }
@@ -2138,14 +2120,14 @@
             {
                 id: 'spec-1',
                 name: 'Celozrnná bageta',
-                desc: 'Chrumkavá bageta z celozrnnej múky so sezamovými semiačkami. Skvelá na sendviče a večerné raňajky.',
+                desc: 'Naša verzia tradičnej francúzskej "baguette", no pripravená z výživnej celozrnnej múky so sezamom.',
                 price: 1.80,
                 img: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=600'
             },
             {
                 id: 'spec-2',
                 name: 'Focaccia s bylinkami',
-                desc: 'Taliansky chlieb s olivovým olejom, rozmarínom a morskou soľou. Pečená každý deň obmedzené množstvo.',
+                desc: 'Pravý taliansky chlieb z Janova. Plný olivového oleja, rozmarínu a morskej soli.',
                 price: 2.20,
                 badge: 'Limitované',
                 img: 'https://images.unsplash.com/photo-1586444248879-bc604bc77b22?q=80&w=600'
@@ -2153,14 +2135,14 @@
             {
                 id: 'spec-3',
                 name: 'Špaldová bageta',
-                desc: 'Predĺžený bochníček z čistej špaldovej múky. Jemná oriešková chuť a chrumkavá kôrka.',
+                desc: 'Zdravší variant francúzskej bagety z čistej špaldovej múky. Jemná oriešková chuť a chrumkavá kôrka.',
                 price: 1.90,
                 img: 'https://images.unsplash.com/photo-1517433456452-f9633a875f6f?q=80&w=600'
             },
             {
                 id: 'spec-4',
                 name: 'Kaiserka',
-                desc: 'Rakúska kaiserka s charakteristickým vzorom a chrumkavou kôrkou. Ideálna k polievke alebo so syrom.',
+                desc: 'Klasická rakúska (Viedenská) Kaisersemmel s charakteristickým päťcípym vzorom a chrumkavou kôrkou.',
                 price: 0.40,
                 img: 'https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?q=80&w=600'
             }
@@ -2270,6 +2252,9 @@
     //  RENDER MENU ITEMS
     // ══════════════════════════════════════
     function buildItemCard(item) {
+        // Embed the user's video link as a clickable element right under the title
+        const videoHtml = item.videoLink ? `<a href="${item.videoLink}" target="_blank" style="font-size:0.65rem; color:var(--gold); text-decoration:none; margin-bottom: 12px; display:inline-block; font-weight: 500; letter-spacing: 1px;">▶ POZRIEŤ VIDEO</a>` : '';
+
         const card = document.createElement('div');
         card.className = 'menu-item';
         card.innerHTML = `
@@ -2279,6 +2264,7 @@
             </div>
             <div class="menu-item-body">
                 <h3>${item.name}</h3>
+                ${videoHtml}
                 <p>${item.desc}</p>
                 <div class="menu-item-footer">
                     <span class="menu-item-price">${formatPrice(item.price)}</span>
