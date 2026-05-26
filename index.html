@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pekáreň Alea | Remeselná pekáreň v Žiline</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --cream: #F5EFE4;
@@ -38,7 +38,7 @@
             content: '';
             position: fixed;
             inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise'/%3E%3C/filter%3E%3Crect width='256' height='256' fill='white'/%3E%3Crect width='256' height='256' fill='white' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise'/%3E%3C/filter%3E%3Crect width='256' height='256' fill='%23f5efe4' filter='url(%23noise)' opacity='0.07'/%3E%3C/svg%3E");
             pointer-events: none;
             z-index: 9999;
             opacity: 0.5;
@@ -997,74 +997,89 @@
         }
 
         .qty-input {
-            width: 36px;
-            padding: 4px 6px;
-            background: var(--cream-deep);
-            border: 1px solid var(--sand);
+            width: 36px; height: 36px;
             text-align: center;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.78rem;
+            padding: 4px 0;
+            font-size: 0.85rem;
+            border: 1px solid var(--sand);
+            background: transparent;
             color: var(--ink);
+            font-family: 'DM Sans', sans-serif;
             border-radius: 2px;
         }
 
-        .remove-from-cart {
-            background: none;
+        .qty-btn {
+            width: 28px; height: 28px;
+            padding: 0;
+            background: var(--sand);
             border: none;
-            color: rgba(26,18,9,0.3);
+            color: var(--ink);
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 0.9rem;
+            border-radius: 2px;
+            transition: background 0.3s;
+        }
+
+        .qty-btn:hover { background: var(--gold); color: white; }
+
+        .cart-item-remove {
+            color: var(--sienna);
+            cursor: pointer;
+            font-size: 1.2rem;
             transition: color 0.3s;
         }
 
-        .remove-from-cart:hover { color: var(--ink); }
+        .cart-item-remove:hover { color: #d9534f; }
 
+        /* Order summary sidebar */
         .order-summary {
             background: var(--smoke);
-            padding: 40px;
-            position: sticky;
-            top: 100px;
-            border-radius: 2px;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
         }
 
-        .order-summary h3 {
+        .order-summary-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
-            font-weight: 400;
+            font-size: 1.8rem;
+            font-weight: 300;
             color: var(--ink);
-            margin-bottom: 28px;
+            margin-bottom: 30px;
         }
 
-        .summary-row {
+        .summary-line {
             display: flex;
             justify-content: space-between;
             font-size: 0.85rem;
-            margin-bottom: 12px;
             color: rgba(26,18,9,0.6);
+            padding: 12px 0;
+        }
+
+        .summary-line strong {
+            color: var(--ink);
+            font-weight: 500;
         }
 
         .summary-total {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding-top: 20px;
-            border-top: 1px solid var(--sand);
-            margin-bottom: 24px;
-        }
-
-        .summary-total strong {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--gold);
+            font-weight: 600;
+            padding: 20px 0;
+            margin-top: 20px;
+            border-top: 1px solid var(--sand);
+            border-bottom: 1px solid var(--sand);
+            margin-bottom: 30px;
         }
 
         .checkout-btn {
+            display: block;
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             background: var(--gold);
             color: #fff;
             text-align: center;
-            text-decoration: none;
             font-size: 0.78rem;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -1077,96 +1092,27 @@
         }
 
         .checkout-btn:hover { background: var(--sienna); }
-        .checkout-btn:disabled { background: rgba(26,18,9,0.2); cursor: not-allowed; }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .order-layout { grid-template-columns: 1fr; }
-            .order-cart-panel { border-right: none; border-bottom: 1px solid var(--sand); padding: 40px 6% 40px; }
-            .order-summary { position: relative; top: 0; }
-        }
 
         @media (max-width: 768px) {
-            nav { padding: 20px 4%; }
-            nav ul { gap: 24px; }
-            .menu-toggle { display: flex; }
-            nav ul { display: none; }
-            nav.menu-open ul { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--cream); padding: 20px; gap: 0; }
-            .logo { font-size: 1.3rem; }
-
-            .hero { min-height: 500px; }
-            .hero-content { padding: 0 4% 8%; }
-            .hero-content h1 { font-size: clamp(2rem, 5vw, 4rem); }
-            .hero-scroll { display: none; }
-
-            .marquee-strip { padding: 10px 0; }
-            .marquee-track span { font-size: 0.9rem; padding: 0 20px; }
-
-            .intro-split { grid-template-columns: 1fr; min-height: auto; }
-            .intro-text { padding: 40px 4%; }
-
-            .reviews-grid { grid-template-columns: 1fr; }
-
-            .menu-preview-grid { grid-template-columns: repeat(2, 1fr); gap: 1px; }
-            .menu-card-img { aspect-ratio: 1/1; }
-
-            .menu-items-grid { grid-template-columns: 1fr; }
-
-            .menu-tabs { padding: 0 4%; overflow-x: auto; }
-            .menu-tab { padding: 16px 20px; font-size: 0.65rem; }
-
-            .section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
-            .section-header-right { text-align: left; max-width: none; }
-
-            .stat-row { gap: 20px; }
-        }
-
-        @media (max-width: 480px) {
-            nav { padding: 16px 4%; }
-            .logo { font-size: 1rem; letter-spacing: 1px; }
-            nav ul { gap: 12px; }
-            .cart-btn { padding: 8px 14px; font-size: 0.65rem; }
-
-            .hero-content h1 { font-size: clamp(1.5rem, 4vw, 3rem); }
-            .hero-content p { font-size: 0.9rem; }
-            .hero-cta { flex-direction: column; gap: 12px; }
-            .btn-primary { width: 100%; text-align: center; }
-
-            .feature-strip { gap: 20px; padding: 12px 4%; }
-            .feature-item { font-size: 0.6rem; }
-
+            nav ul { gap: 20px; }
+            nav.scrolled { padding: 12px 6%; }
             .menu-preview-grid { grid-template-columns: 1fr; }
-            .menu-card-body { padding: 20px 16px 16px; }
-            .menu-card-body h3 { font-size: 1.4rem; }
-
-            .intro-text h2 { font-size: 1.5rem; }
-            .stat-row { gap: 10px; flex-direction: column; }
-
-            .reviews-section { padding: 50px 4%; }
-            .reviews-section h2 { font-size: 1.8rem; margin-bottom: 30px; }
-
-            .order-page-hero { padding: 40px 4% 30px; }
-            .order-cart-panel { padding: 30px 4%; }
-
-            .order-summary { padding: 30px 4%; }
-            .menu-tab { padding: 14px 16px; }
+            .order-layout { grid-template-columns: 1fr; }
+            .order-cart-panel { border-right: none; border-bottom: 1px solid var(--sand); }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav id="nav">
-        <a href="#" class="logo">Pekáreň <em>Alea</em></a>
-        <ul id="nav-menu">
-            <li><a href="#home" onclick="showPage('home')">Domov</a></li>
-            <li><a href="#menu" onclick="showPage('menu')">Ponuka</a></li>
-            <li><a href="#order" onclick="showPage('order')">Objednávka</a></li>
+    <nav>
+        <div class="logo">Pekáreň <em>Alea</em></div>
+        <ul>
+            <li><a class="nav-link active" onclick="goToPage('home')">Domov</a></li>
+            <li><a class="nav-link" onclick="goToPage('menu')">Menu</a></li>
+            <li><a class="nav-link" onclick="goToPage('order')">Objednávka</a></li>
         </ul>
-        <a href="#order" class="cart-btn" onclick="showPage('order')">
-            <span>🛒 Objednávka</span>
-            <span class="cart-count" id="cart-count">0</span>
-        </a>
-        <div class="menu-toggle" onclick="toggleMenu()">
+        <button class="cart-btn" onclick="goToPage('order')">🛒 <span class="cart-count">0</span></button>
+        <div class="menu-toggle">
             <span></span>
             <span></span>
             <span></span>
@@ -1174,509 +1120,354 @@
     </nav>
 
     <!-- WhatsApp Float -->
-    <a href="https://wa.me/421XXXXXXXXX" target="_blank" class="wa-float" title="Napíšte nám na WhatsApp">
-        💬
+    <a href="https://wa.me/421xxxxxxxxx" target="_blank" class="wa-float">
+        <span style="font-size: 1.8rem;">💬</span>
     </a>
 
     <!-- HOME PAGE -->
     <div id="page-home" class="page active">
         <!-- Hero Section -->
-        <div class="hero">
+        <section class="hero">
             <div class="hero-bg"></div>
             <div class="hero-content">
-                <div class="hero-label">Remeselná Pekáreň</div>
-                <h1>Chlieb priamo <em>z rozpékaného dreva</em></h1>
-                <p>Tradičná kvalita s modernými hodnotami. Každý kus pripravovaný s láskou a najlepšími ingredienciami.</p>
+                <span class="hero-label">Kvalita bez Kompromisov</span>
+                <h1>Remeselná <em>Pekáreň</em> Alea</h1>
+                <p>Tradičné pečivo a dezerty pripravené s láskou. Čerstvo z nášho pece každý deň.</p>
                 <div class="hero-cta">
-                    <a href="#menu" class="btn-primary" onclick="showPage('menu')">Pozrieť Ponuku</a>
-                    <a href="https://wa.me/421XXXXXXXXX" target="_blank" class="btn-ghost">
-                        Kontaktujte Nás →
-                    </a>
+                    <button class="btn-primary" onclick="goToPage('menu')">OBJAVTE MENU</button>
+                    <button class="btn-ghost">VIAC INFO →</button>
                 </div>
             </div>
             <div class="hero-scroll">
-                <span>Posúvajte sa</span>
+                <span>Posuňte Sa</span>
                 <div class="scroll-line"></div>
             </div>
-        </div>
+        </section>
 
         <!-- Feature Strip -->
         <div class="feature-strip">
-            <div class="feature-item"><span class="dot"></span> 100% Prírodné Ingrediencie</div>
-            <div class="feature-item"><span class="dot"></span> Bez Umelých Prídavkov</div>
-            <div class="feature-item"><span class="dot"></span> Pečené denne</div>
+            <div class="feature-item">
+                <span class="dot"></span> Čerstvo Pečené Každý Deň
+            </div>
+            <div class="feature-item">
+                <span class="dot"></span> Prírodné Ingrediencie
+            </div>
+            <div class="feature-item">
+                <span class="dot"></span> Bezpečnosť a Kvalita
+            </div>
         </div>
 
         <!-- Marquee Strip -->
         <div class="marquee-strip">
             <div class="marquee-track">
-                <span>Najlepší chlieb v Žiline</span>
-                <span>Najlepší chlieb v Žiline</span>
-                <span>Najlepší chlieb v Žiline</span>
+                <span>Vítajte v Pekárni Alea</span>
+                <span>Vítajte v Pekárni Alea</span>
             </div>
         </div>
 
         <!-- Intro Split -->
-        <div class="intro-split">
+        <section class="intro-split">
             <div class="intro-image">
-                <img src="https://images.unsplash.com/photo-1585521537190-6ba4ee93e437?q=80&w=800" alt="Tradičný chlieb">
+                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&h=700&fit=crop" alt="Pekáreň">
                 <div class="intro-image-overlay">
-                    <strong>Od Roku 1995</strong>
-                    <small>Naša história</small>
+                    <strong>Tradícia</strong>
+                    <small>Od roku 2015</small>
                 </div>
             </div>
             <div class="intro-text">
-                <div class="eyebrow">O Nás</div>
-                <h2>Tradícia a Kvalita</h2>
-                <p>Pekáreň Alea sa špecializuje na chlieb pečený v tradičnej drovenej peci. Naša dedikácia ku kvalite a použitie iba prírodných ingrediencií robí z nášho chleba niečo špeciálne.</p>
-                <p>Každý deň sa snažíme poskytnúť svojim zákazníkom ten najlepší chlieb, ktorý si zasluž.</p>
+                <span class="eyebrow">Náš Príbeh</span>
+                <h2>Pas podľa Najstarších Receptov</h2>
+                <p>V Pekárni Alea veríme na kvalitu a autenticitu. Naše recepty sú dedičstvom generácií, ktoré sme upravili do moderného času bez straty tradičného charakteru.</p>
                 <div class="stat-row">
                     <div class="stat-item">
-                        <strong>28+</strong>
-                        <span>Rokov Tradície</span>
+                        <strong>100%</strong>
+                        <span>Prírodné Ingrediencie</span>
                     </div>
                     <div class="stat-item">
-                        <strong>5000+</strong>
-                        <span>Spokojných Zákazníkov</span>
+                        <strong>+50</strong>
+                        <span>Produktov</span>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Reviews -->
-        <div class="reviews-section">
-            <div class="eyebrow">Čo Hovoria Našu Zákazníci</div>
-            <h2>Recenzie</h2>
+        <!-- Reviews Section -->
+        <section class="reviews-section">
+            <span class="eyebrow">Recenzie</span>
+            <h2>Páči Sa Nám Vďaka Vám</h2>
             <div class="reviews-grid">
                 <div class="review-card">
                     <div class="review-stars">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
+                        <span class="star">★★★★★</span>
                     </div>
-                    <blockquote>"Najlepší chlieb v meste! Tradicka kvalita, ktorá sa vskutku pozna."</blockquote>
+                    <blockquote>"Najlepšie pečivo v meste. Chutné a čerstvé!"</blockquote>
                     <div class="reviewer">
                         <div class="reviewer-avatar">M</div>
                         <div class="reviewer-info">
-                            <strong>Mária</strong>
+                            <strong>Mária K.</strong>
                             <small>Overený nákup</small>
                         </div>
                     </div>
                 </div>
                 <div class="review-card">
                     <div class="review-stars">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
+                        <span class="star">★★★★★</span>
                     </div>
-                    <blockquote>"Som návštevník už päť rokov. Nikdy sa neomeškal s kvalitou!"</blockquote>
+                    <blockquote>"Dezerty sú neuveriteľné. Musíme sa vrátiť!"</blockquote>
                     <div class="reviewer">
                         <div class="reviewer-avatar">J</div>
                         <div class="reviewer-info">
-                            <strong>Ján</strong>
-                            <small>Verný zákazník</small>
+                            <strong>Ján H.</strong>
+                            <small>Overený nákup</small>
                         </div>
                     </div>
                 </div>
                 <div class="review-card">
                     <div class="review-stars">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
+                        <span class="star">★★★★★</span>
                     </div>
-                    <blockquote>"Perfektný chlieb pre rodinu. Každý deň si берiem čerstvý!</blockquote>
+                    <blockquote>"Personál je vždy milý a pomôcka. Odporúčam!"</blockquote>
                     <div class="reviewer">
-                        <div class="reviewer-avatar">K</div>
+                        <div class="reviewer-avatar">A</div>
                         <div class="reviewer-info">
-                            <strong>Katarína</strong>
+                            <strong>Anna L.</strong>
                             <small>Overený nákup</small>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Home Menu Preview -->
-        <div class="home-menu-preview">
+        <!-- Menu Preview -->
+        <section class="home-menu-preview">
             <div class="section-header">
                 <div class="section-header-left">
-                    <div class="eyebrow">Naša Ponuka</div>
-                    <h2>Vybrané Produkty</h2>
+                    <span class="eyebrow">Naše Ponuka</span>
+                    <h2>Objavte Naš Menu</h2>
                 </div>
                 <div class="section-header-right">
-                    Prezrieme si jednotlivé druhy chleba, ktoré vyrábame. Každý je pripravený s veľkou starostlivosťou a najlepšími ingredienciami.
+                    Ponúkame širokú škálu tradičného a moderného pečiva, dezertov a nápojov pripravených denne.
                 </div>
             </div>
-            <div class="menu-preview-grid" id="home-menu-preview">
-                <!-- Dynamically filled -->
+            <div class="menu-preview-grid">
+                <div class="menu-card" onclick="goToPage('menu')">
+                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&h=600&fit=crop" class="menu-card-img">
+                    <div class="menu-card-body">
+                        <span class="menu-card-tag">Dezerty</span>
+                        <h3>Koláče</h3>
+                        <p>Jemné a chutné koláče pripravené s najlepšími ingredienciami.</p>
+                    </div>
+                </div>
+                <div class="menu-card" onclick="goToPage('menu')">
+                    <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=500&h=600&fit=crop" class="menu-card-img">
+                    <div class="menu-card-body">
+                        <span class="menu-card-tag">Pečivo</span>
+                        <h3>Čerstvé Chlieb</h3>
+                        <p>Tradiční chlieb pečený svieže každý deň ráno.</p>
+                    </div>
+                </div>
+                <div class="menu-card" onclick="goToPage('menu')">
+                    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500&h=600&fit=crop" class="menu-card-img">
+                    <div class="menu-card-body">
+                        <span class="menu-card-tag">Nápoje</span>
+                        <h3>Horúce Nápoje</h3>
+                        <p>Ideálna káva alebo čaj ku každému jedlu.</p>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
     </div>
 
     <!-- MENU PAGE -->
     <div id="page-menu" class="page">
         <div class="menu-page-hero">
-            <div class="eyebrow">Pozrieť si našu celú</div>
-            <h1>Ponuku</h1>
-            <p>Všetky naše produkty sú pripravované tradičným spôsobom s maximálnym dôrazom na kvalitu a prírodu.</p>
+            <span class="eyebrow">Naše Ponuka</span>
+            <h1>Náš <em>Menu</em></h1>
+            <p>Všetky naše produkty sú pripravené čerstvo a bez umylých aditív.</p>
         </div>
 
-        <div class="menu-tabs" id="menu-tabs">
-            <button class="menu-tab active" onclick="filterCategory('all')">Všetko</button>
-            <button class="menu-tab" onclick="filterCategory('chleby')">Chleby</button>
-            <button class="menu-tab" onclick="filterCategory('peklo')">Peklo</button>
-            <button class="menu-tab" onclick="filterCategory('dobroty')">Dobroty</button>
-        </div>
-
-        <div class="menu-content">
-            <div class="menu-category active" id="menu-category-all">
-                <!-- Dynamically filled -->
-            </div>
-            <div class="menu-category" id="menu-category-chleby">
-                <!-- Dynamically filled -->
-            </div>
-            <div class="menu-category" id="menu-category-peklo">
-                <!-- Dynamically filled -->
-            </div>
-            <div class="menu-category" id="menu-category-dobroty">
-                <!-- Dynamically filled -->
-            </div>
-        </div>
+        <div class="menu-tabs" id="menuTabs"></div>
+        <div class="menu-content" id="menuContent"></div>
     </div>
 
     <!-- ORDER PAGE -->
     <div id="page-order" class="page">
         <div class="order-page-hero">
-            <div class="eyebrow">Môj</div>
-            <h1>Nákupný Kôš</h1>
-            <p>Skontrolujte a potvrďte vašu objednávku. Môžete upravovať množstvo alebo odstrániť produkty.</p>
+            <span class="eyebrow">Vaša Objednávka</span>
+            <h1>Nákupný <em>Košík</em></h1>
+            <p>Skontrolujte a upravte svoju objednávku. Kliknite na produkt, aby ste ho objednal.</p>
         </div>
 
         <div class="order-layout">
             <div class="order-cart-panel">
-                <h2>Položky v Kôši</h2>
-                <div class="cart-items" id="cart-items">
+                <h2>Položky v Košíku</h2>
+                <div class="cart-container" id="cartContainer">
                     <div class="cart-empty">
-                        <div class="cart-empty-icon">🛒</div>
-                        <p>Váš nákupný kôš je prázdny</p>
-                        <a href="#" onclick="showPage('menu')" class="btn-primary">Pokračovať v nákupe</a>
+                        <div class="cart-empty-icon">🛍️</div>
+                        <p>Váš košík je prázdny</p>
+                        <button class="btn-primary" onclick="goToPage('menu')">ZAČAŤ OBJEDNÁVAŤ</button>
                     </div>
                 </div>
             </div>
-
-            <div>
-                <div class="order-summary">
-                    <h3>Zhrnutie Objednávky</h3>
-                    <div class="summary-row">
-                        <span>Cena položiek:</span>
-                        <span id="subtotal">0 €</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Doručenie:</span>
-                        <span>5 €</span>
-                    </div>
-                    <div class="summary-total">
-                        <span>Spolu:</span>
-                        <strong id="total">0 €</strong>
-                    </div>
-                    <button class="checkout-btn" onclick="checkout()" id="checkout-btn">Pokračovať v Platbe</button>
+            <div class="order-summary" id="orderSummary" style="display:none;">
+                <h3 class="order-summary-title">Zhrnutie</h3>
+                <div class="summary-line">
+                    <span>Súčasne:</span>
+                    <strong id="subtotalAmount">0,00 €</strong>
                 </div>
+                <div class="summary-line">
+                    <span>Doprava:</span>
+                    <strong>Dohodou</strong>
+                </div>
+                <div class="summary-total">
+                    <span>Celkom:</span>
+                    <strong id="totalAmount">0,00 €</strong>
+                </div>
+                <button class="checkout-btn">POTVRDIŤ OBJEDNÁVKU</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Sample menu data
-        const menuData = [
-            {
-                id: 1,
-                name: "Tradičný Chlieb",
-                category: "chleby",
-                description: "Klasický chlieb pečený v drovenej peci",
-                price: "2.50",
-                image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=300",
-                badge: "Bestseller"
+        const menuData = {
+            cakes: {
+                name: 'Kváskové Koláče',
+                subtitle: 'Tradičné pečivo a dezerty',
+                items: [
+                    { name: 'Cheesecake Slaný Karamel', description: 'Klasická cheesecake s karamelom', image: 'https://images.unsplash.com/photo-1533134242443-742ce1a0a1a9?w=400&h=300&fit=crop', category: 'cakes' },
+                    { name: 'Cheesecake Malina', description: 'Šťavnatá cheesecake s malinovým prevolakom', image: 'https://images.unsplash.com/photo-1541123603104-852c80b9e741?w=400&h=300&fit=crop', category: 'cakes' },
+                    { name: 'Cheesecake Lotus', description: 'Cheesecake s Lotus sušienkami', image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=300&fit=crop', category: 'cakes' },
+                    { name: 'Cheesecake Pistácia', description: 'Luxusná cheesecake s pistaciou', image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop', category: 'cakes' },
+                    { name: 'Pavlova Tortička', description: 'Mini Pavlova s ovocom a smotanou', image: 'https://images.unsplash.com/photo-1599599810694-b5ac4dd57a3d?w=400&h=300&fit=crop', category: 'cakes' },
+                    { name: 'Veterník', description: 'Tradičný listový šnek s karamelovou krémsou', image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a104?w=400&h=300&fit=crop', category: 'cakes' },
+                    { name: 'Tartaletka', description: 'Čokoládové a ovocné tartaleťky', image: 'https://images.unsplash.com/photo-1488477066519-51a339d368cb?w=400&h=300&fit=crop', category: 'cakes' },
+                    { name: 'Čoko-Malina Torta', description: 'Kúsok čokoládovej torty s maliňami', image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop', category: 'cakes' },
+                    { name: 'Ovocný Rez', description: 'Vrstvený dezert s ovocím a šľahačkou', image: 'https://images.unsplash.com/photo-1564355808913-afa98e46446a?w=400&h=300&fit=crop', category: 'cakes' },
+                    { name: 'Cupcake', description: 'Dekorovaný maslový cupcake', image: 'https://images.unsplash.com/photo-1587080692701-ba1cf83c2bc2?w=400&h=300&fit=crop', category: 'cakes' },
+                    { name: 'Makrónka', description: 'Jemná francúzska makrónka', image: 'https://images.unsplash.com/photo-1569718150521-bcec59baf1f1?w=400&h=300&fit=crop', category: 'cakes' }
+                ]
             },
-            {
-                id: 2,
-                name: "Žitný Chlieb",
-                category: "chleby",
-                description: "Tmavý chlieb s bohatým zámesením",
-                price: "3.00",
-                image: "https://images.unsplash.com/photo-1568958123761-dcdcf48f5c83?q=80&w=300",
-                badge: "Nový"
-            },
-            {
-                id: 3,
-                name: "Biely Chlieb",
-                category: "chleby",
-                description: "Svetlý a krehký chlieb",
-                price: "2.00",
-                image: "https://images.unsplash.com/photo-1524824786289-69613514b01d?q=80&w=300",
-                badge: ""
-            },
-            {
-                id: 4,
-                name: "Kváskový Chlieb",
-                category: "chleby",
-                description: "Tradičný kváskový chlieb s históriou",
-                price: "3.50",
-                image: "https://images.unsplash.com/photo-1574080691172-89e5eca1d12a?q=80&w=300",
-                badge: "Bestseller"
-            },
-            {
-                id: 5,
-                name: "Kváskový Škvarkový Chlieb",
-                category: "chleby",
-                description: "S lokálnymi švarkmi",
-                price: "4.00",
-                image: "https://images.unsplash.com/photo-1599599810694-cd308461c3f0?q=80&w=300",
-                badge: "Nový"
-            },
-            {
-                id: 6,
-                name: "Pšeničný Chlieb",
-                category: "chleby",
-                description: "Ľahký pšeničný chlieb",
-                price: "2.50",
-                image: "https://images.unsplash.com/photo-1599599810982-e4b9b2b5d3f5?q=80&w=300",
-                badge: ""
-            },
-            {
-                id: 7,
-                name: "Syrečky",
-                category: "peklo",
-                description: "Slaný chlebíky s syrom",
-                price: "1.50",
-                image: "https://images.unsplash.com/photo-1555939594-58d7cb561cea?q=80&w=300",
-                badge: "Populárne"
-            },
-            {
-                id: 8,
-                name: "Cibuľovníky",
-                category: "peklo",
-                description: "Slané pecivo s cibuľou a kmínom",
-                price: "1.20",
-                image: "https://images.unsplash.com/photo-1515037893149-f3051b3b3b6f?q=80&w=300",
-                badge: ""
-            },
-            {
-                id: 9,
-                name: "Parenice",
-                category: "peklo",
-                description: "Tradičné parenice s maslom a cukrom",
-                price: "2.00",
-                image: "https://images.unsplash.com/photo-1535920527894-b400b62fe5b2?q=80&w=300",
-                badge: "Bestseller"
-            },
-            {
-                id: 10,
-                name: "Croissant",
-                category: "peklo",
-                description: "Francúzsky croissant s maslom",
-                price: "1.80",
-                image: "https://images.unsplash.com/photo-1530587191325-3db8b3be5f3f?q=80&w=300",
-                badge: ""
-            },
-            {
-                id: 11,
-                name: "Kakaové Tyčinky",
-                category: "dobroty",
-                description: "Sladké tyčinky pokryté kakaom",
-                price: "1.00",
-                image: "https://images.unsplash.com/photo-1599599810395-e88ded20dae0?q=80&w=300",
-                badge: "Nový"
-            },
-            {
-                id: 12,
-                name: "Medovníčky",
-                category: "dobroty",
-                description: "Tradičné medovníčky",
-                price: "0.80",
-                image: "https://images.unsplash.com/photo-1599599810560-be21e2c9d8dc?q=80&w=300",
-                badge: ""
+            beverages: {
+                name: 'Nápoje',
+                subtitle: 'Káva, čaj a osviežujúce nápoje',
+                items: [
+                    { name: 'Espresso', description: 'Silná čierna káva', image: 'https://images.unsplash.com/photo-1541432557050-44c7dcbbe309?w=400&h=300&fit=crop', category: 'beverages' },
+                    { name: 'Espresso Lungo', description: 'Dlhé espresso s vodou', image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b3f7?w=400&h=300&fit=crop', category: 'beverages' },
+                    { name: 'Espresso Doppio', description: 'Dvojitý espresso', image: 'https://images.unsplash.com/photo-1501339847302-ac426a36c42d?w=400&h=300&fit=crop', category: 'beverages' },
+                    { name: 'Cappuccino', description: 'Vláčna káva so šľahačkou', image: 'https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?w=400&h=300&fit=crop', category: 'beverages' },
+                    { name: 'Latte Macchiato', description: 'Silná káva s teplým mliekom', image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=300&fit=crop', category: 'beverages' },
+                    { name: 'Horúca Čokoláda', description: 'Hrejivá čokoláda s mliekom', image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=300&fit=crop', category: 'beverages' },
+                    { name: 'Čaj z Čerstvej Mäty', description: 'Prírodný bylinný čaj', image: 'https://images.unsplash.com/photo-1597318912503-bc9bcad00980?w=400&h=300&fit=crop', category: 'beverages' },
+                    { name: 'Čaj zo Zázvoru', description: 'Horúci čaj so zázvorom', image: 'https://images.unsplash.com/photo-1597318912503-bc9bcad00980?w=400&h=300&fit=crop', category: 'beverages' },
+                    { name: 'Domáca Limonáda', description: 'Osviežujúca domáca limonáda (0,5l)', image: 'https://images.unsplash.com/photo-1513651857529-ef55a5e4645d?w=400&h=300&fit=crop', category: 'beverages' }
+                ]
             }
-        ];
+        };
 
         let cart = [];
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            renderMenuPreview();
-            renderMenuCategories();
-        });
+        function renderMenu() {
+            const tabs = document.getElementById('menuTabs');
+            const content = document.getElementById('menuContent');
 
-        function renderMenuPreview() {
-            const preview = document.getElementById('home-menu-preview');
-            preview.innerHTML = menuData.slice(0, 6).map(item => `
-                <div class="menu-card" onclick="showPage('menu')">
-                    <img src="${item.image}" alt="${item.name}" class="menu-card-img">
-                    <div class="menu-card-body">
-                        ${item.badge ? `<span class="menu-card-tag">${item.badge}</span>` : ''}
-                        <h3>${item.name}</h3>
-                        <p>${item.description}</p>
+            tabs.innerHTML = '';
+            content.innerHTML = '';
+
+            Object.keys(menuData).forEach((key, index) => {
+                const category = menuData[key];
+
+                // Tab
+                const tab = document.createElement('button');
+                tab.className = `menu-tab ${index === 0 ? 'active' : ''}`;
+                tab.textContent = category.name;
+                tab.onclick = () => switchCategory(key);
+                tabs.appendChild(tab);
+
+                // Content
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = `menu-category ${index === 0 ? 'active' : ''}`;
+                categoryDiv.id = `category-${key}`;
+
+                categoryDiv.innerHTML = `
+                    <h2 class="menu-category-title">${category.name}</h2>
+                    <p class="menu-category-subtitle">${category.subtitle}</p>
+                    <div class="menu-items-grid">
+                        ${category.items.map(item => `
+                            <div class="menu-item">
+                                <div class="menu-item-img-wrap">
+                                    <img src="${item.image}" alt="${item.name}" class="menu-item-img">
+                                </div>
+                                <div class="menu-item-body">
+                                    <h3>${item.name}</h3>
+                                    <p>${item.description}</p>
+                                    <div class="menu-item-footer">
+                                        <button class="add-to-order" onclick="addToCart('${item.name}', '${item.image}')">Pridať</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
                     </div>
-                </div>
-            `).join('');
-        }
+                `;
 
-        function renderMenuCategories() {
-            const categories = {
-                'all': menuData,
-                'chleby': menuData.filter(item => item.category === 'chleby'),
-                'peklo': menuData.filter(item => item.category === 'peklo'),
-                'dobroty': menuData.filter(item => item.category === 'dobroty')
-            };
-
-            Object.keys(categories).forEach(cat => {
-                const container = document.getElementById(`menu-category-${cat}`);
-                if (container) {
-                    container.innerHTML = renderMenuItems(categories[cat]);
-                }
+                content.appendChild(categoryDiv);
             });
         }
 
-        function renderMenuItems(items) {
-            if (items.length === 0) return '<p>Žiadne položky v tejto kategórii</p>';
-
-            return items.map(item => `
-                <div class="menu-item">
-                    <div class="menu-item-img-wrap">
-                        <img src="${item.image}" alt="${item.name}" class="menu-item-img">
-                        ${item.badge ? `<span class="menu-item-badge">${item.badge}</span>` : ''}
-                    </div>
-                    <div class="menu-item-body">
-                        <h3>${item.name}</h3>
-                        <p>${item.description}</p>
-                        <div class="menu-item-footer">
-                            <button class="add-to-order" onclick="addToCart(${item.id}, '${item.name}', ${item.price}, '${item.image}')">
-                                + Pridať
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function addToCart(id, name, price, image) {
-            const existingItem = cart.find(item => item.id === id);
-
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ id, name, price, image, quantity: 1 });
-            }
-
-            updateCartCount();
-            renderCart();
-        }
-
-        function updateCartCount() {
-            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cart-count').textContent = count;
-            
-            if (count > 0) {
-                document.getElementById('cart-count').classList.add('bump');
-                setTimeout(() => {
-                    document.getElementById('cart-count').classList.remove('bump');
-                }, 300);
-            }
-        }
-
-        function renderCart() {
-            const cartContainer = document.getElementById('cart-items');
-
-            if (cart.length === 0) {
-                cartContainer.innerHTML = `
-                    <div class="cart-empty">
-                        <div class="cart-empty-icon">🛒</div>
-                        <p>Váš nákupný kôš je prázdny</p>
-                        <a href="#" onclick="showPage('menu')" class="btn-primary">Pokračovať v nákupe</a>
-                    </div>
-                `;
-                updateTotals();
-                return;
-            }
-
-            cartContainer.innerHTML = cart.map(item => `
-                <div class="cart-item">
-                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
-                    <div>
-                        <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-price">${item.price} € za kus</div>
-                    </div>
-                    <div class="cart-item-controls">
-                        <input type="number" class="qty-input" value="${item.quantity}" min="1" onchange="updateQuantity(${item.id}, this.value)">
-                        <button class="remove-from-cart" onclick="removeFromCart(${item.id})">✕</button>
-                    </div>
-                </div>
-            `).join('');
-
-            updateTotals();
-        }
-
-        function updateQuantity(id, quantity) {
-            const item = cart.find(i => i.id === id);
-            if (item) {
-                item.quantity = Math.max(1, parseInt(quantity) || 1);
-                updateCartCount();
-                renderCart();
-            }
-        }
-
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            updateCartCount();
-            renderCart();
-        }
-
-        function updateTotals() {
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const delivery = cart.length > 0 ? 5 : 0;
-            const total = subtotal + delivery;
-
-            document.getElementById('subtotal').textContent = subtotal.toFixed(2) + ' €';
-            document.getElementById('total').textContent = total.toFixed(2) + ' €';
-            document.getElementById('checkout-btn').disabled = cart.length === 0;
-        }
-
-        function filterCategory(category) {
+        function switchCategory(key) {
             document.querySelectorAll('.menu-category').forEach(el => el.classList.remove('active'));
-            document.getElementById(`menu-category-${category}`).classList.add('active');
-
             document.querySelectorAll('.menu-tab').forEach(el => el.classList.remove('active'));
+            document.getElementById(`category-${key}`).classList.add('active');
             event.target.classList.add('active');
         }
 
-        function showPage(pageName) {
+        function goToPage(page) {
             document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-            document.getElementById(`page-${pageName}`).classList.add('active');
-
-            document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
-            const activeLink = document.querySelector(`a[href="#${pageName}"]`);
-            if (activeLink) activeLink.classList.add('active');
-
-            window.scrollTo(0, 0);
+            document.getElementById(`page-${page}`).classList.add('active');
         }
 
-        function checkout() {
-            if (cart.length === 0) return;
-            alert('Objednávka odoslaná! Ďakujeme za vašu objednávku.');
-            cart = [];
-            updateCartCount();
-            renderCart();
+        function addToCart(name, image) {
+            cart.push({ name, image });
+            updateCart();
         }
 
-        function toggleMenu() {
-            const nav = document.getElementById('nav');
-            nav.classList.toggle('menu-open');
+        function updateCart() {
+            document.querySelector('.cart-count').textContent = cart.length;
+            const container = document.getElementById('cartContainer');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="cart-empty">
+                        <div class="cart-empty-icon">🛍️</div>
+                        <p>Váš košík je prázdny</p>
+                        <button class="btn-primary" onclick="goToPage('menu')">ZAČAŤ OBJEDNÁVAŤ</button>
+                    </div>
+                `;
+                document.getElementById('orderSummary').style.display = 'none';
+            } else {
+                container.innerHTML = `
+                    <div class="cart-items">
+                        ${cart.map((item, idx) => `
+                            <div class="cart-item">
+                                <img src="${item.image}" class="cart-item-img">
+                                <div>
+                                    <div class="cart-item-name">${item.name}</div>
+                                </div>
+                                <button class="cart-item-remove" onclick="removeFromCart(${idx})">✕</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                document.getElementById('orderSummary').style.display = 'flex';
+            }
         }
+
+        function removeFromCart(idx) {
+            cart.splice(idx, 1);
+            updateCart();
+        }
+
+        // Initialize
+        renderMenu();
     </script>
 </body>
 </html>
