@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pekáreň Alea | Remeselná pekáreň v Žiline</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --cream: #F5EFE4;
@@ -38,7 +38,7 @@
             content: '';
             position: fixed;
             inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise'/%3E%3C/filter%3E%3Crect width='256' height='256' fill='white'/%3E%3Crect width='256' height='256' fill='white' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
             pointer-events: none;
             z-index: 9999;
             opacity: 0.5;
@@ -848,10 +848,7 @@
         }
 
         .menu-item-price {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.4rem;
-            font-weight: 400;
-            color: var(--gold);
+            display: none;
         }
 
         .add-to-order {
@@ -999,1802 +996,687 @@
             gap: 10px;
         }
 
-        .qty-btn {
-            width: 28px; height: 28px;
+        .qty-input {
+            width: 36px;
+            padding: 4px 6px;
+            background: var(--cream-deep);
             border: 1px solid var(--sand);
-            background: none;
-            border-radius: 2px;
-            cursor: pointer;
-            font-size: 1rem;
-            color: var(--ink);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s, border-color 0.2s;
-        }
-
-        .qty-btn:hover { background: var(--cream-deep); border-color: var(--gold); }
-
-        .qty-display {
-            font-size: 0.9rem;
-            font-weight: 500;
-            min-width: 20px;
             text-align: center;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.78rem;
+            color: var(--ink);
+            border-radius: 2px;
         }
 
-        .remove-btn {
+        .remove-from-cart {
             background: none;
             border: none;
-            color: rgba(26,18,9,0.25);
+            color: rgba(26,18,9,0.3);
             cursor: pointer;
-            font-size: 1.1rem;
-            padding: 0 4px;
-            transition: color 0.2s;
+            font-size: 1rem;
+            transition: color 0.3s;
         }
 
-        .remove-btn:hover { color: var(--sienna); }
+        .remove-from-cart:hover { color: var(--ink); }
 
-        .cart-summary {
-            background: var(--ink);
-            padding: 28px;
-            border-radius: 3px;
-            margin-bottom: 10px;
+        .order-summary {
+            background: var(--smoke);
+            padding: 40px;
+            position: sticky;
+            top: 100px;
+            border-radius: 2px;
         }
 
-        .cart-summary-row {
+        .order-summary h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: 28px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            color: rgba(26,18,9,0.6);
+        }
+
+        .summary-total {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 0;
-            font-size: 0.82rem;
-            color: rgba(255,255,255,0.5);
+            padding-top: 20px;
+            border-top: 1px solid var(--sand);
+            margin-bottom: 24px;
         }
 
-        .cart-summary-row.total {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            margin-top: 10px;
-            padding-top: 16px;
-            color: #fff;
-            font-size: 1rem;
-        }
-
-        .cart-summary-row.total span:last-child {
+        .summary-total strong {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.5rem;
-            color: var(--gold-light);
-        }
-
-        /* Order Form */
-        .order-form-panel {
-            padding: 60px 6% 80px 50px;
-            background: var(--smoke);
-        }
-
-        .order-form-panel h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
-            font-weight: 300;
-            color: var(--ink);
-            margin-bottom: 10px;
-        }
-
-        .order-form-panel > p {
-            font-size: 0.82rem;
-            color: rgba(26,18,9,0.45);
-            margin-bottom: 36px;
-            line-height: 1.6;
-        }
-
-        .form-group {
-            margin-bottom: 22px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.68rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
             color: var(--gold);
-            margin-bottom: 8px;
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
+        .checkout-btn {
             width: 100%;
-            padding: 14px 18px;
-            background: var(--cream);
-            border: 1px solid var(--sand);
-            border-radius: 2px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 300;
-            color: var(--ink);
-            outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(200,146,74,0.1);
-        }
-
-        .form-group textarea { resize: vertical; min-height: 100px; }
-
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
-        .form-note {
-            font-size: 0.75rem;
-            color: rgba(26,18,9,0.4);
-            margin-top: 6px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 18px;
+            padding: 16px;
             background: var(--gold);
             color: #fff;
-            border: none;
-            border-radius: 2px;
-            font-family: 'DM Sans', sans-serif;
+            text-align: center;
+            text-decoration: none;
             font-size: 0.78rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: 500;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            margin-top: 10px;
-        }
-
-        .submit-btn:hover { background: var(--sienna); transform: translateY(-1px); }
-        .submit-btn:disabled { background: var(--sand); cursor: not-allowed; transform: none; }
-
-        /* Order success */
-        .order-success {
-            display: none;
-            text-align: center;
-            padding: 60px 20px;
-        }
-
-        .order-success.show { display: block; }
-
-        .order-success-icon {
-            width: 70px; height: 70px;
-            background: var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            font-size: 1.8rem;
-            animation: popIn 0.5s cubic-bezier(0.16,1,0.3,1);
-        }
-
-        @keyframes popIn {
-            from { transform: scale(0); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .order-success h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem;
-            font-weight: 300;
-            color: var(--ink);
-            margin-bottom: 12px;
-        }
-
-        .order-success p {
-            font-size: 0.9rem;
-            color: rgba(26,18,9,0.5);
-            line-height: 1.7;
-            max-width: 380px;
-            margin: 0 auto 30px;
-        }
-
-        /* ── CONTACT PAGE ── */
-        #page-contact {
-            padding-top: 100px;
-            background: var(--cream);
-            min-height: 100vh;
-        }
-
-        .contact-page-hero {
-            padding: 80px 6% 70px;
-            background: var(--smoke);
-            border-bottom: 1px solid var(--sand);
-        }
-
-        .contact-page-hero h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.8rem, 5vw, 4.5rem);
-            font-weight: 300;
-            color: var(--ink);
-            margin-bottom: 14px;
-            line-height: 1.05;
-        }
-
-        .contact-page-hero h1 em { font-style: italic; color: var(--gold); }
-
-        .contact-page-hero p {
-            color: rgba(26,18,9,0.45);
-            font-size: 0.9rem;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            min-height: 600px;
-        }
-
-        .contact-map-wrap {
-            position: relative;
-        }
-
-        .contact-map-wrap iframe {
-            width: 100%;
-            height: 100%;
-            min-height: 500px;
             border: none;
-            display: block;
-            filter: sepia(20%) contrast(90%);
-        }
-
-        .contact-info-panel {
-            padding: 70px 6% 70px 50px;
-            background: var(--smoke);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .contact-info-panel h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.4rem;
-            font-weight: 300;
-            color: var(--ink);
-            margin-bottom: 50px;
-            line-height: 1.2;
-        }
-
-        .hours-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 44px;
-        }
-
-        .hours-table tr { border-bottom: 1px solid var(--sand); }
-        .hours-table tr:last-child { border-bottom: none; }
-
-        .hours-table td {
-            padding: 14px 0;
-            font-size: 0.88rem;
-        }
-
-        .hours-table td:first-child {
-            color: rgba(26,18,9,0.55);
-            letter-spacing: 0.5px;
-        }
-
-        .hours-table td:last-child {
-            text-align: right;
-            font-weight: 500;
-            color: var(--ink);
-        }
-
-        .hours-table tr.today td { color: var(--gold); font-weight: 500; }
-
-        .contact-detail {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            margin-bottom: 22px;
-        }
-
-        .contact-icon {
-            width: 40px; height: 40px;
-            background: var(--cream-deep);
             border-radius: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 1.1rem;
-        }
-
-        .contact-detail-text strong {
-            display: block;
-            font-size: 0.68rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 4px;
-        }
-
-        .contact-detail-text span {
-            font-size: 0.9rem;
-            color: rgba(26,18,9,0.7);
-            line-height: 1.6;
-        }
-
-        .contact-detail-text a {
-            color: rgba(26,18,9,0.7);
-            text-decoration: none;
-        }
-
-        .contact-detail-text a:hover { color: var(--gold); }
-
-        /* Contact Form */
-        .contact-form-section {
-            padding: 80px 6%;
-            background: var(--cream);
-        }
-
-        .contact-form-inner {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: start;
-        }
-
-        .contact-form-text .eyebrow { margin-bottom: 14px; }
-
-        .contact-form-text h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2rem, 3.5vw, 2.8rem);
-            font-weight: 300;
-            color: var(--ink);
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .contact-form-text p {
-            font-size: 0.9rem;
-            color: rgba(26,18,9,0.5);
-            line-height: 1.8;
-            margin-bottom: 14px;
-        }
-
-        .contact-form-actual { /* uses .form-group styles */ }
-
-        /* ── GALLERY (home) ── */
-        .gallery-section {
-            padding: 100px 6%;
-            background: var(--smoke);
-        }
-
-        .gallery-header { text-align: center; margin-bottom: 60px; }
-
-        .gallery-header h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            font-weight: 300;
-            color: var(--ink);
-        }
-
-        .gallery-masonry {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-
-        .gallery-item { position: relative; overflow: hidden; border-radius: 2px; cursor: pointer; }
-        .gallery-item:nth-child(1) { grid-row: span 2; }
-        .gallery-item:nth-child(4) { grid-row: span 2; }
-
-        .gallery-item img {
-            width: 100%; height: 100%;
-            min-height: 200px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
-        }
-
-        .gallery-item:hover img { transform: scale(1.06); }
-
-        .gallery-item-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(26,18,9,0.6) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.4s;
-            display: flex;
-            align-items: flex-end;
-            padding: 18px;
-        }
-
-        .gallery-item:hover .gallery-item-overlay { opacity: 1; }
-
-        .gallery-badge {
-            font-size: 0.62rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.9);
-            border: 1px solid rgba(255,255,255,0.4);
-            padding: 5px 12px;
-            border-radius: 2px;
-        }
-
-        /* ── FOOTER ── */
-        footer {
-            background: var(--ink);
-            color: rgba(245,239,228,0.4);
-            padding: 50px 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .footer-logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: rgba(245,239,228,0.8);
-            letter-spacing: 2px;
             cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: background 0.3s;
         }
 
-        .footer-logo em { font-style: italic; color: var(--gold); }
+        .checkout-btn:hover { background: var(--sienna); }
+        .checkout-btn:disabled { background: rgba(26,18,9,0.2); cursor: not-allowed; }
 
-        footer p { font-size: 0.78rem; letter-spacing: 0.5px; }
-
-        .footer-socials { display: flex; gap: 16px; }
-
-        .footer-socials a {
-            width: 36px; height: 36px;
-            border: 1px solid rgba(245,239,228,0.1);
-            border-radius: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(245,239,228,0.4);
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: border-color 0.3s, color 0.3s;
-        }
-
-        .footer-socials a:hover { border-color: var(--gold); color: var(--gold); }
-
-        /* ── SCROLL REVEAL ── */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
-        }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
-        .reveal-delay-1 { transition-delay: 0.12s; }
-        .reveal-delay-2 { transition-delay: 0.22s; }
-        .reveal-delay-3 { transition-delay: 0.32s; }
-
-        /* ── MOBILE NAV OVERLAY ── */
-        .mobile-nav-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: var(--ink);
-            z-index: 190;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 36px;
-        }
-
-        .mobile-nav-overlay.open { display: flex; }
-
-        .mobile-nav-overlay a {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem;
-            font-weight: 300;
-            color: rgba(245,239,228,0.7);
-            text-decoration: none;
-            letter-spacing: 2px;
-            transition: color 0.3s;
-            cursor: pointer;
-        }
-
-        .mobile-nav-overlay a:hover { color: var(--gold-light); }
-
-        .mobile-close {
-            position: absolute;
-            top: 28px; right: 6%;
-            background: none;
-            border: none;
-            color: rgba(245,239,228,0.5);
-            font-size: 1.6rem;
-            cursor: pointer;
-        }
-
-        /* ── RESPONSIVE ── */
+        /* Responsive */
         @media (max-width: 1024px) {
-            .menu-preview-grid { grid-template-columns: 1fr 1fr; }
-            .reviews-grid { grid-template-columns: 1fr 1fr; }
-            .reviews-grid .review-card:last-child { display: none; }
-            .intro-split { grid-template-columns: 1fr; }
-            .intro-image { height: 400px; }
-            .gallery-masonry { grid-template-columns: repeat(2, 1fr); }
-            .gallery-item:nth-child(1), .gallery-item:nth-child(4) { grid-row: span 1; }
             .order-layout { grid-template-columns: 1fr; }
-            .order-form-panel { padding: 50px 6%; }
-            .contact-grid { grid-template-columns: 1fr; }
-            .contact-form-inner { grid-template-columns: 1fr; gap: 40px; }
+            .order-cart-panel { border-right: none; border-bottom: 1px solid var(--sand); padding: 40px 6% 40px; }
+            .order-summary { position: relative; top: 0; }
         }
 
         @media (max-width: 768px) {
-            nav ul { display: none; }
+            nav { padding: 20px 4%; }
+            nav ul { gap: 24px; }
             .menu-toggle { display: flex; }
-            .cart-btn span:not(.cart-count) { display: none; }
-            .cart-btn { padding: 10px 14px; }
-            .menu-preview-grid { grid-template-columns: 1fr; }
-            .gallery-masonry { grid-template-columns: 1fr 1fr; }
+            nav ul { display: none; }
+            nav.menu-open ul { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--cream); padding: 20px; gap: 0; }
+            .logo { font-size: 1.3rem; }
+
+            .hero { min-height: 500px; }
+            .hero-content { padding: 0 4% 8%; }
+            .hero-content h1 { font-size: clamp(2rem, 5vw, 4rem); }
+            .hero-scroll { display: none; }
+
+            .marquee-strip { padding: 10px 0; }
+            .marquee-track span { font-size: 0.9rem; padding: 0 20px; }
+
+            .intro-split { grid-template-columns: 1fr; min-height: auto; }
+            .intro-text { padding: 40px 4%; }
+
             .reviews-grid { grid-template-columns: 1fr; }
-            .reviews-grid .review-card:last-child { display: block; }
-            .section-header { flex-direction: column; align-items: flex-start; gap: 20px; }
-            .section-header-right { text-align: left; max-width: 100%; }
-            footer { flex-direction: column; text-align: center; }
-            .order-layout { grid-template-columns: 1fr; }
-            .order-cart-panel { padding: 40px 6%; border-right: none; border-bottom: 1px solid var(--sand); }
-            .order-form-panel { padding: 40px 6%; }
-            .contact-info-panel { padding: 50px 6%; }
-            .form-row { grid-template-columns: 1fr; }
+
+            .menu-preview-grid { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+            .menu-card-img { aspect-ratio: 1/1; }
+
+            .menu-items-grid { grid-template-columns: 1fr; }
+
+            .menu-tabs { padding: 0 4%; overflow-x: auto; }
+            .menu-tab { padding: 16px 20px; font-size: 0.65rem; }
+
+            .section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+            .section-header-right { text-align: left; max-width: none; }
+
+            .stat-row { gap: 20px; }
         }
-        /* ── BB-inspired headline upgrade ── */
-        .intro-text h2,
-        .section-header-left h2,
-        .reviews-section h2,
-        .menu-page h1,
-        .order-page h1,
-        .contact-page h1 {
-            font-family: 'Playfair Display', serif !important;
-            font-weight: 400;
-            letter-spacing: -1px;
+
+        @media (max-width: 480px) {
+            nav { padding: 16px 4%; }
+            .logo { font-size: 1rem; letter-spacing: 1px; }
+            nav ul { gap: 12px; }
+            .cart-btn { padding: 8px 14px; font-size: 0.65rem; }
+
+            .hero-content h1 { font-size: clamp(1.5rem, 4vw, 3rem); }
+            .hero-content p { font-size: 0.9rem; }
+            .hero-cta { flex-direction: column; gap: 12px; }
+            .btn-primary { width: 100%; text-align: center; }
+
+            .feature-strip { gap: 20px; padding: 12px 4%; }
+            .feature-item { font-size: 0.6rem; }
+
+            .menu-preview-grid { grid-template-columns: 1fr; }
+            .menu-card-body { padding: 20px 16px 16px; }
+            .menu-card-body h3 { font-size: 1.4rem; }
+
+            .intro-text h2 { font-size: 1.5rem; }
+            .stat-row { gap: 10px; flex-direction: column; }
+
+            .reviews-section { padding: 50px 4%; }
+            .reviews-section h2 { font-size: 1.8rem; margin-bottom: 30px; }
+
+            .order-page-hero { padding: 40px 4% 30px; }
+            .order-cart-panel { padding: 30px 4%; }
+
+            .order-summary { padding: 30px 4%; }
+            .menu-tab { padding: 14px 16px; }
         }
-        .eyebrow { font-family: 'DM Mono', monospace !important; letter-spacing: 0.18em; }
     </style>
-
-<meta name="description" content="Pekáreň Alea - čerstvé remeselné pečivo, croissanty, sladké a slané pečivo v centre Žiliny.">
-<meta name="keywords" content="Pekáreň Alea, bakery Žilina, croissant, pečivo, bagety, sladké pečivo">
-<meta name="theme-color" content="#b91c1c">
-
 </head>
 <body>
-
-    <div class="mobile-nav-overlay" id="mobileNav">
-        <button class="mobile-close" onclick="closeMobileNav()">✕</button>
-        <a onclick="goTo('home');closeMobileNav()">Domov</a>
-        <a onclick="goTo('menu');closeMobileNav()">Ponuka</a>
-        <a onclick="goTo('order');closeMobileNav()">Objednávka</a>
-        <a onclick="goTo('contact');closeMobileNav()">Kontakt</a>
-    </div>
-
-    <nav id="mainNav">
-        <span class="logo" onclick="goTo('home')">Pekáreň <em>Alea</em></span>
-        <ul>
-            <li><a id="nav-home" class="active" onclick="goTo('home')">Domov</a></li>
-            <li><a id="nav-menu" onclick="goTo('menu')">Ponuka</a></li>
-            <li><a id="nav-order" onclick="goTo('order')">Objednávka</a></li>
-            <li><a id="nav-contact" onclick="goTo('contact')">Kontakt</a></li>
+    <!-- Navigation -->
+    <nav id="nav">
+        <a href="#" class="logo">Pekáreň <em>Alea</em></a>
+        <ul id="nav-menu">
+            <li><a href="#home" onclick="showPage('home')">Domov</a></li>
+            <li><a href="#menu" onclick="showPage('menu')">Ponuka</a></li>
+            <li><a href="#order" onclick="showPage('order')">Objednávka</a></li>
         </ul>
-        <div style="display:flex;align-items:center;gap:14px">
-            <button class="cart-btn" onclick="goTo('order')">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-                <span>Košík</span>
-                <span class="cart-count" id="cartCount">0</span>
-            </button>
-            <div class="menu-toggle" onclick="openMobileNav()">
-                <span></span><span></span><span></span>
-            </div>
+        <a href="#order" class="cart-btn" onclick="showPage('order')">
+            <span>🛒 Objednávka</span>
+            <span class="cart-count" id="cart-count">0</span>
+        </a>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
     </nav>
 
-    <div class="page active" id="page-home">
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/421XXXXXXXXX" target="_blank" class="wa-float" title="Napíšte nám na WhatsApp">
+        💬
+    </a>
 
-        <section class="hero" id="domov">
+    <!-- HOME PAGE -->
+    <div id="page-home" class="page active">
+        <!-- Hero Section -->
+        <div class="hero">
             <div class="hero-bg"></div>
             <div class="hero-content">
-                <span class="hero-label">Žilina · Horný Val 42/22 · 010 01 Žilina</span>
-                <h1>Chrumkavé<br><em>dedičstvo</em><br>Žiliny</h1>
-                <p>Tradičné receptúry, poctivé suroviny a vôňa, kvôli ktorej sa oplatí privstať si každé ráno.</p>
+                <div class="hero-label">Remeselná Pekáreň</div>
+                <h1>Chlieb priamo <em>z rozpékaného dreva</em></h1>
+                <p>Tradičná kvalita s modernými hodnotami. Každý kus pripravovaný s láskou a najlepšími ingredienciami.</p>
                 <div class="hero-cta">
-                    <button class="btn-primary" onclick="goTo('menu')">
-                        Naša ponuka
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </button>
-                    <button class="btn-ghost" onclick="goTo('contact')">
-                        Kde nás nájdete
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                    </button>
+                    <a href="#menu" class="btn-primary" onclick="showPage('menu')">Pozrieť Ponuku</a>
+                    <a href="https://wa.me/421XXXXXXXXX" target="_blank" class="btn-ghost">
+                        Kontaktujte Nás →
+                    </a>
                 </div>
             </div>
             <div class="hero-scroll">
+                <span>Posúvajte sa</span>
                 <div class="scroll-line"></div>
-                <span>Scroll</span>
             </div>
-        </section>
+        </div>
 
-        <div class="marquee-strip" aria-hidden="true">
+        <!-- Feature Strip -->
+        <div class="feature-strip">
+            <div class="feature-item"><span class="dot"></span> 100% Prírodné Ingrediencie</div>
+            <div class="feature-item"><span class="dot"></span> Bez Umelých Prídavkov</div>
+            <div class="feature-item"><span class="dot"></span> Pečené denne</div>
+        </div>
+
+        <!-- Marquee Strip -->
+        <div class="marquee-strip">
             <div class="marquee-track">
-                <span>Kváskový Chlieb</span><span>Tradičné Pečivo</span><span>Sladké Koláče</span>
-                <span>Ranné Rožky</span><span>Pletenky</span><span>Moravské Koláče</span>
-                <span>Čerstvé Každý Deň</span><span>Kváskový Chlieb</span><span>Tradičné Pečivo</span>
-                <span>Sladké Koláče</span><span>Ranné Rožky</span><span>Pletenky</span>
-                <span>Moravské Koláče</span><span>Čerstvé Každý Deň</span>
+                <span>Najlepší chlieb v Žiline</span>
+                <span>Najlepší chlieb v Žiline</span>
+                <span>Najlepší chlieb v Žiline</span>
             </div>
         </div>
 
-        <div class="feature-strip" aria-label="Pekáreň Alea Žilina">
-            <div class="feature-item"><span class="dot"></span>Horný Val 42/22 · 010 01 Žilina</div>
-            <div class="feature-item"><span class="dot"></span>Google hodnotenie 4.7 ★</div>
-            <div class="feature-item"><span class="dot"></span>Laureát Orly Pekárstva 2025</div>
-            <div class="feature-item"><span class="dot"></span>Otvorené od 06:00</div>
-            <div class="feature-item"><span class="dot"></span>Kváskový chlieb · Ručná práca</div>
-        </div>
-
+        <!-- Intro Split -->
         <div class="intro-split">
-            <div class="intro-image reveal">
-                <img src="hero-store.jpg" alt="Kváskový chlieb">
+            <div class="intro-image">
+                <img src="https://images.unsplash.com/photo-1585521537190-6ba4ee93e437?q=80&w=800" alt="Tradičný chlieb">
                 <div class="intro-image-overlay">
-                    <div>
-                        <strong>Kváskový Chlieb</strong>
-                        <small>Vlajkový produkt</small>
-                    </div>
+                    <strong>Od Roku 1995</strong>
+                    <small>Naša história</small>
                 </div>
             </div>
             <div class="intro-text">
-                <p class="eyebrow">Naša história</p>
-                <h2 class="reveal">Pečieme s láskou<br>už desaťročia</h2>
-                <p class="reveal reveal-delay-1">Pekáreň Alea vznikla z lásky k remeslu a tradicii. Každý deň vstávame skoro ráno, aby sme pre vás pripravili to najlepšie pečivo zo starostlivo vybraných surovín.</p>
-                <p class="reveal reveal-delay-2">Naše recepty sú overené časom a odovzdávané z generácie na generáciu. Veríme, že dobrý chlieb je základom každého dna.</p>
-                <div class="stat-row reveal reveal-delay-3">
-                    <div class="stat-item"><strong>9.6★</strong><span>Orly Pekárstva</span></div>
-                    <div class="stat-item"><strong>40+</strong><span>Druhov pečiva</span></div>
-                    <div class="stat-item"><strong>73+</strong><span>Hodnotení zákazníkov</span></div>
+                <div class="eyebrow">O Nás</div>
+                <h2>Tradícia a Kvalita</h2>
+                <p>Pekáreň Alea sa špecializuje na chlieb pečený v tradičnej drovenej peci. Naša dedikácia ku kvalite a použitie iba prírodných ingrediencií robí z nášho chleba niečo špeciálne.</p>
+                <p>Každý deň sa snažíme poskytnúť svojim zákazníkom ten najlepší chlieb, ktorý si zasluž.</p>
+                <div class="stat-row">
+                    <div class="stat-item">
+                        <strong>28+</strong>
+                        <span>Rokov Tradície</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong>5000+</strong>
+                        <span>Spokojných Zákazníkov</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="home-menu-preview">
-            <div class="section-header">
-                <div class="section-header-left">
-                    <p class="eyebrow reveal">Naša ponuka</p>
-                    <h2 class="reveal reveal-delay-1">Čerstvé každý<br>deň ráno</h2>
-                </div>
-                <p class="section-header-right reveal reveal-delay-2">Vyberte si z našich ručne pripravovaných špecialít. Každý kus pečený s remeselnou starostlivosťou.</p>
-            </div>
-
-            <div class="menu-preview-grid">
-                <div class="menu-card reveal" onclick="goTo('menu')">
-                    <img class="menu-card-img" src="interior-wide.jpg" alt="Kváskový Chlieb">
-                    <div class="menu-card-body">
-                        <span class="menu-card-tag">Bestseller</span>
-                        <h3>Kváskový<br>Chlieb</h3>
-                        <p>Chrumkavá kôrka a nadýchaný stred podľa tradičnej receptúry. Pečený každé ráno.</p>
-                    </div>
-                </div>
-                <div class="menu-card reveal reveal-delay-1" onclick="goTo('menu')">
-                    <img class="menu-card-img" src="bakery-display.jpg" alt="Tradičné Pečivo">
-                    <div class="menu-card-body">
-                        <span class="menu-card-tag">Ranné špeciality</span>
-                        <h3>Tradičné<br>Pečivo</h3>
-                        <p>Rožky, pletenky a žemle, ktoré perfektne naštartujú vaše ráno.</p>
-                    </div>
-                </div>
-                <div class="menu-card reveal reveal-delay-2" onclick="goTo('menu')">
-                    <img class="menu-card-img" src="fresh-bread.jpg" alt="Sladké Koláče">
-                    <div class="menu-card-body">
-                        <span class="menu-card-tag">Sladká sekcia</span>
-                        <h3>Sladké<br>Koláče</h3>
-                        <p>Moravské koláče, šatôčky a záviny plnené tou najlepšou plnkou.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div style="text-align:center;margin-top:50px">
-                <button class="btn-primary" onclick="goTo('menu')" style="margin:0 auto">
-                    Zobraziť celú ponuku
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </button>
-            </div>
-        </div>
-
-        <div class="gallery-section">
-            <div class="gallery-header">
-                <p class="eyebrow reveal">Galéria</p>
-                <h2 class="reveal reveal-delay-1">Pohľady od našich zákazníkov</h2>
-            </div>
-            <div class="gallery-masonry">
-                <div class="gallery-item reveal">
-                    <img src="pretzel.jpg" alt="Fresh bread">
-                    <div class="gallery-item-overlay"><span class="gallery-badge">Zákazník</span></div>
-                </div>
-                <div class="gallery-item reveal reveal-delay-1">
-                    <img src="cinnamon.jpg" alt="Bakery interior">
-                    <div class="gallery-item-overlay"><span class="gallery-badge">Interiér</span></div>
-                </div>
-                <div class="gallery-item reveal reveal-delay-2">
-                    <img src="pistachio-croissant.jpg" alt="Sweet pastry">
-                    <div class="gallery-item-overlay"><span class="gallery-badge">Top produkt</span></div>
-                </div>
-                <div class="gallery-item reveal reveal-delay-3">
-                    <img src="blueberry.jpg" alt="Baking process">
-                    <div class="gallery-item-overlay"><span class="gallery-badge">Za kulisami</span></div>
-                </div>
-            </div>
-        </div>
-
+        <!-- Reviews -->
         <div class="reviews-section">
-            <p class="eyebrow">Google hodnotenia</p>
-            <h2 class="reveal">Čo o nás hovorí<br>Žilina</h2>
+            <div class="eyebrow">Čo Hovoria Našu Zákazníci</div>
+            <h2>Recenzie</h2>
             <div class="reviews-grid">
-                <div class="review-card reveal">
-                    <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-                    <blockquote>Najlepší kváskový chlieb v Žiline. Chodím sem každé ráno a nikdy som nebol sklamaný. Vôňa pri vstupe vás okamžite pohltí.</blockquote>
+                <div class="review-card">
+                    <div class="review-stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <blockquote>"Najlepší chlieb v meste! Tradicka kvalita, ktorá sa vskutku pozna."</blockquote>
                     <div class="reviewer">
                         <div class="reviewer-avatar">M</div>
                         <div class="reviewer-info">
-                            <strong>Martin Kováč</strong>
-                            <small>Google · pred 2 týždňami</small>
+                            <strong>Mária</strong>
+                            <small>Overený nákup</small>
                         </div>
                     </div>
                 </div>
-                <div class="review-card reveal reveal-delay-1">
-                    <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-                    <blockquote>Moravské koláče sú presne také, aké pamätám z detstva. Poctivá práca, milý personál a skvelé ceny. Vrelo odporúčam každému!</blockquote>
+                <div class="review-card">
+                    <div class="review-stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <blockquote>"Som návštevník už päť rokov. Nikdy sa neomeškal s kvalitou!"</blockquote>
                     <div class="reviewer">
-                        <div class="reviewer-avatar">Z</div>
+                        <div class="reviewer-avatar">J</div>
                         <div class="reviewer-info">
-                            <strong>Zuzana Horváthová</strong>
-                            <small>Google · pred 1 mesiacom</small>
+                            <strong>Ján</strong>
+                            <small>Verný zákazník</small>
                         </div>
                     </div>
                 </div>
-                <div class="review-card reveal reveal-delay-2">
-                    <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-                    <blockquote>Pekáreň s dušou. Cítiť, že každý kus je robený s láskou. Najlepšia ranná zastávka v centre Žiliny bez diskusie.</blockquote>
+                <div class="review-card">
+                    <div class="review-stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <blockquote>"Perfektný chlieb pre rodinu. Každý deň si берiem čerstvý!</blockquote>
                     <div class="reviewer">
-                        <div class="reviewer-avatar">P</div>
+                        <div class="reviewer-avatar">K</div>
                         <div class="reviewer-info">
-                            <strong>Peter Novák</strong>
-                            <small>Google · pred 3 týždňami</small>
+                            <strong>Katarína</strong>
+                            <small>Overený nákup</small>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-    </div><div class="page" id="page-menu">
+        <!-- Home Menu Preview -->
+        <div class="home-menu-preview">
+            <div class="section-header">
+                <div class="section-header-left">
+                    <div class="eyebrow">Naša Ponuka</div>
+                    <h2>Vybrané Produkty</h2>
+                </div>
+                <div class="section-header-right">
+                    Prezrieme si jednotlivé druhy chleba, ktoré vyrábame. Každý je pripravený s veľkou starostlivosťou a najlepšími ingredienciami.
+                </div>
+            </div>
+            <div class="menu-preview-grid" id="home-menu-preview">
+                <!-- Dynamically filled -->
+            </div>
+        </div>
+    </div>
 
+    <!-- MENU PAGE -->
+    <div id="page-menu" class="page">
         <div class="menu-page-hero">
-            <p class="eyebrow">Naša ponuka</p>
-            <h1>Pečené s <em>láskou</em><br>každé ráno</h1>
-            <p>Vyše 40 druhov čerstvého pečiva, chlebov a sladkostí. Všetko ručne pripravované od roku 2006.</p>
+            <div class="eyebrow">Pozrieť si našu celú</div>
+            <h1>Ponuku</h1>
+            <p>Všetky naše produkty sú pripravované tradičným spôsobom s maximálnym dôrazom na kvalitu a prírodu.</p>
         </div>
 
-        <div class="menu-tabs" id="menuTabs">
-            <button class="menu-tab active" data-cat="all">Všetko</button>
-            <button class="menu-tab" data-cat="sladke">🍰 Sladké pečivo</button>
-            <button class="menu-tab" data-cat="croissanty">🥐 Croissanty</button>
-            <button class="menu-tab" data-cat="slane">🧀 Slané pečivo</button>
-            <button class="menu-tab" data-cat="chlieb">🍞 Chlieb & Rožky</button>
+        <div class="menu-tabs" id="menu-tabs">
+            <button class="menu-tab active" onclick="filterCategory('all')">Všetko</button>
+            <button class="menu-tab" onclick="filterCategory('chleby')">Chleby</button>
+            <button class="menu-tab" onclick="filterCategory('peklo')">Peklo</button>
+            <button class="menu-tab" onclick="filterCategory('dobroty')">Dobroty</button>
         </div>
 
         <div class="menu-content">
-
-            <div class="menu-category active" id="cat-all">
-                </div>
-
-            <div class="menu-category" id="cat-sladke">
-                <h2 class="menu-category-title">Sladké pečivo</h2>
-                <p class="menu-category-subtitle">Buchty, záviny, slimáky a srdcia pečené každé ráno podľa tradičných receptúr</p>
-                <div class="menu-items-grid" id="grid-sladke"></div>
+            <div class="menu-category active" id="menu-category-all">
+                <!-- Dynamically filled -->
             </div>
-
-            <div class="menu-category" id="cat-croissanty">
-                <h2 class="menu-category-title">Croissanty</h2>
-                <p class="menu-category-subtitle">Zlatisté maslové croissanty s rôznymi náplňami — od pistácie po karamel</p>
-                <div class="menu-items-grid" id="grid-croissanty"></div>
+            <div class="menu-category" id="menu-category-chleby">
+                <!-- Dynamically filled -->
             </div>
-
-            <div class="menu-category" id="cat-slane">
-                <h2 class="menu-category-title">Slané pečivo</h2>
-                <p class="menu-category-subtitle">Praclíky, burky, párky v cestíčku a pizza — výdatné slané špeciality</p>
-                <div class="menu-items-grid" id="grid-slane"></div>
+            <div class="menu-category" id="menu-category-peklo">
+                <!-- Dynamically filled -->
             </div>
-
-            <div class="menu-category" id="cat-chlieb">
-                <h2 class="menu-category-title">Chlieb & Rožky</h2>
-                <p class="menu-category-subtitle">Čerstvý chlieb a rožky pečené každé ráno z poctivých surovín</p>
-                <div class="menu-items-grid" id="grid-chlieb"></div>
+            <div class="menu-category" id="menu-category-dobroty">
+                <!-- Dynamically filled -->
             </div>
-
         </div>
+    </div>
 
-        <div style="text-align:center;padding:20px 6% 80px;">
-            <button class="btn-primary" onclick="goTo('order')">
-                Prejsť na objednávku
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-            </button>
-        </div>
-
-    </div><div class="page" id="page-order">
-
+    <!-- ORDER PAGE -->
+    <div id="page-order" class="page">
         <div class="order-page-hero">
-            <p class="eyebrow">Online objednávka</p>
-            <h1>Váš <em>košík</em></h1>
-            <p>Rezervujte si pečivo vopred. Pripravíme ho pre vás čerstvé.</p>
+            <div class="eyebrow">Môj</div>
+            <h1>Nákupný Kôš</h1>
+            <p>Skontrolujte a potvrďte vašu objednávku. Môžete upravovať množstvo alebo odstrániť produkty.</p>
         </div>
 
         <div class="order-layout">
             <div class="order-cart-panel">
-                <h2>Položky objednávky</h2>
-
-                <div class="cart-empty" id="cartEmpty">
-                    <div class="cart-empty-icon">🛒</div>
-                    <p>Váš košík je prázdny. Vyberte si z našej ponuky.</p>
-                    <button class="btn-primary" onclick="goTo('menu')">
-                        Prejsť na ponuku
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </button>
-                </div>
-
-                <div id="cartItemsWrap" style="display:none">
-                    <div class="cart-items" id="cartItems"></div>
-
-                    <div class="cart-summary">
-                        <div class="cart-summary-row">
-                            <span>Medzisúčet</span>
-                            <span id="subtotal">0,00 €</span>
-                        </div>
-                        <div class="cart-summary-row">
-                            <span>Vyzdvihnutie na predajni</span>
-                            <span>Zadarmo</span>
-                        </div>
-                        <div class="cart-summary-row total">
-                            <span>Celkom</span>
-                            <span id="totalPrice">0,00 €</span>
-                        </div>
-                    </div>
-                    <p style="font-size:0.72rem;color:rgba(26,18,9,0.4);margin-top:10px;line-height:1.6">
-                        Objednávku je potrebné vyzdvihnúť osobne na predajni.<br>
-                        Horný Val 42/22, 010 01 Žilina
-                    </p>
-                </div>
-            </div>
-
-            <div class="order-form-panel">
-                <div id="orderFormWrap">
-                    <h2>Kontaktné údaje</h2>
-                    <p>Vyplňte formulár a my vašu objednávku pripravíme v dohodnutom čase.</p>
-
-                    <div class="form-group">
-                        <label>Celé meno *</label>
-                        <input type="text" id="orderName" placeholder="Meno a priezvisko">
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Telefón *</label>
-                            <input type="tel" id="orderPhone" placeholder="+421 9xx xxx xxx">
-                        </div>
-                        <div class="form-group">
-                            <label>E-mail</label>
-                            <input type="email" id="orderEmail" placeholder="vas@email.sk">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Dátum vyzdvihnutia *</label>
-                            <input type="date" id="orderDate">
-                        </div>
-                        <div class="form-group">
-                            <label>Čas vyzdvihnutia *</label>
-                            <select id="orderTime">
-                                <option value="">Vyberte čas</option>
-                                <option>06:00 – 07:00</option>
-                                <option>07:00 – 08:00</option>
-                                <option>08:00 – 09:00</option>
-                                <option>09:00 – 10:00</option>
-                                <option>10:00 – 11:00</option>
-                                <option>11:00 – 12:00</option>
-                                <option>12:00 – 13:00</option>
-                                <option>13:00 – 14:00</option>
-                                <option>14:00 – 15:00</option>
-                                <option>15:00 – 16:00</option>
-                                <option>16:00 – 17:00</option>
-                                <option>17:00 – 18:00</option>
-                                <option>18:00 – 19:00</option>
-                                <option>19:00 – 20:00</option>
-                                <option>20:00 – 21:00</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Poznámka k objednávke</label>
-                        <textarea id="orderNote" placeholder="Špeciálne požiadavky, alergie, počet kusov navyše..."></textarea>
-                    </div>
-
-                    <button class="submit-btn" onclick="submitOrder()" id="submitBtn">
-                        Odoslať objednávku →
-                    </button>
-                    <p class="form-note" style="margin-top:14px">
-                        * Povinné polia. Po odoslaní vás kontaktujeme na telefónnom čísle pre potvrdenie.
-                    </p>
-                </div>
-
-                <div class="order-success" id="orderSuccess">
-                    <div class="order-success-icon">✓</div>
-                    <h3>Objednávka odoslaná!</h3>
-                    <p>Ďakujeme. Čoskoro vás kontaktujeme na zadanom telefónnom čísle pre potvrdenie objednávky.</p>
-                    <button class="btn-primary" onclick="resetOrder()">
-                        Nová objednávka
-                    </button>
-                </div>
-            </div>
-        </div>
-
-    </div><div class="page" id="page-contact">
-
-        <div class="contact-page-hero">
-            <p class="eyebrow">Navštívte nás</p>
-            <h1>Nájdete nás<br>v srdci <em>Žiliny</em></h1>
-            <p>Horný Val 42/22 · Otvorené každý deň</p>
-        </div>
-
-        <div class="contact-grid">
-            <div class="contact-map-wrap">
-                <iframe
-                    src="hero-store.jpg"
-                    allowfullscreen
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    title="Pekáreň Alea na mape">
-                </iframe>
-            </div>
-
-            <div class="contact-info-panel">
-                <h2>Otváracie hodiny<br>a kontakt</h2>
-
-                <table class="hours-table">
-                    <tr id="row-mon"><td>Pondelok</td><td>06:00 – 21:00</td></tr>
-                    <tr id="row-tue"><td>Utorok</td><td>06:00 – 21:00</td></tr>
-                    <tr id="row-wed"><td>Streda</td><td>06:00 – 21:00</td></tr>
-                    <tr id="row-thu"><td>Štvrtok</td><td>06:00 – 21:00</td></tr>
-                    <tr id="row-fri"><td>Piatok</td><td>06:00 – 21:00</td></tr>
-                    <tr id="row-sat"><td>Sobota</td><td>07:00 – 21:00</td></tr>
-                    <tr id="row-sun"><td>Nedeľa</td><td>07:00 – 21:00</td></tr>
-                </table>
-
-                <div class="contact-detail">
-                    <div class="contact-icon">📍</div>
-                    <div class="contact-detail-text">
-                        <strong>Adresa</strong>
-                        <span>Horný Val 42/22, 010 01 Žilina<br>Slovensko</span>
-                    </div>
-                </div>
-
-                <div class="contact-detail">
-                    <div class="contact-icon">📞</div>
-                    <div class="contact-detail-text">
-                        <strong>Telefón</strong>
-                        <span><a href="tel:+421908790850">+421 908 790 850</a></span>
-                    </div>
-                </div>
-
-                <div class="contact-detail">
-                    <div class="contact-icon">✉️</div>
-                    <div class="contact-detail-text">
-                        <strong>E-mail</strong>
-                        <span><a href="mailto:baldedaj66@gmail.com">baldedaj66@gmail.com</a></span>
-                    </div>
-                </div>
-
-                <div class="contact-detail">
-                    <div class="contact-icon">📅</div>
-                    <div class="contact-detail-text">
-                        <strong>Pôsobíme od</strong>
-                        <span>2006 · Viac ako 20 rokov remeselného pečenia</span>
-                    </div>
-                </div>
-
-                <div class="contact-detail">
-                    <div class="contact-icon">⭐</div>
-                    <div class="contact-detail-text">
-                        <strong>Hodnotenie</strong>
-                        <span>9.6 / 10 — Laureát Orly Pekárstva 2025 (61 hodnotení)</span>
+                <h2>Položky v Kôši</h2>
+                <div class="cart-items" id="cart-items">
+                    <div class="cart-empty">
+                        <div class="cart-empty-icon">🛒</div>
+                        <p>Váš nákupný kôš je prázdny</p>
+                        <a href="#" onclick="showPage('menu')" class="btn-primary">Pokračovať v nákupe</a>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="contact-form-section">
-            <div class="contact-form-inner">
-                <div class="contact-form-text">
-                    <p class="eyebrow">Napíšte nám</p>
-                    <h2>Máte otázku<br>alebo záujem?</h2>
-                    <p>Radi odpovieme na akékoľvek otázky – či už ide o špeciálnu objednávku, catering, alebo len chcete vedieť, čo sme dnes napiekli.</p>
-                    <p>Prípadne nám pokojne zavolajte alebo nás navštívte priamo na predajni na Hornom Vale.</p>
-                </div>
-                <div class="contact-form-actual" id="contactFormWrap">
-                    <div class="form-group">
-                        <label>Meno *</label>
-                        <input type="text" id="cName" placeholder="Vaše meno">
+            <div>
+                <div class="order-summary">
+                    <h3>Zhrnutie Objednávky</h3>
+                    <div class="summary-row">
+                        <span>Cena položiek:</span>
+                        <span id="subtotal">0 €</span>
                     </div>
-                    <div class="form-group">
-                        <label>E-mail alebo telefón *</label>
-                        <input type="text" id="cContact" placeholder="Email alebo telefónne číslo">
+                    <div class="summary-row">
+                        <span>Doručenie:</span>
+                        <span>5 €</span>
                     </div>
-                    <div class="form-group">
-                        <label>Predmet</label>
-                        <select id="cSubject">
-                            <option value="">Vyberte tému</option>
-                            <option>Špeciálna objednávka</option>
-                            <option>Catering / udalosť</option>
-                            <option>Informácie o produktoch</option>
-                            <option>Spolupráca</option>
-                            <option>Iné</option>
-                        </select>
+                    <div class="summary-total">
+                        <span>Spolu:</span>
+                        <strong id="total">0 €</strong>
                     </div>
-                    <div class="form-group">
-                        <label>Správa *</label>
-                        <textarea id="cMessage" placeholder="Čo by ste chceli vedieť?"></textarea>
-                    </div>
-                    <button class="submit-btn" onclick="submitContact()">
-                        Odoslať správu →
-                    </button>
-
-                    <div id="contactSuccess" style="display:none;margin-top:24px;padding:20px;background:var(--cream-deep);border-left:3px solid var(--gold);border-radius:2px">
-                        <p style="font-size:0.88rem;color:var(--ink)">✓  Správa odoslaná! Ozveme sa vám čo najskôr.</p>
-                    </div>
+                    <button class="checkout-btn" onclick="checkout()" id="checkout-btn">Pokračovať v Platbe</button>
                 </div>
             </div>
         </div>
-
-    </div><footer>
-        <span class="footer-logo" onclick="goTo('home')">Pekáreň <em>Alea</em></span>
-        <p>© 2026 Pekáreň Alea Žilina · Horný Val 42/22 · +421 908 790 850 · <a href="mailto:baldedaj66@gmail.com" style="color:inherit;opacity:0.7;">baldedaj66@gmail.com</a></p>
-        <div class="footer-socials">
-            <a href="https://www.facebook.com/p/Pek%C3%A1re%C5%88-Alea-61565104947726/" target="_blank" aria-label="Facebook" title="Facebook">f</a>
-            <a href="https://www.instagram.com/pekarenalea?igsh=eGo2eDBmdHFtbWN2" target="_blank" aria-label="Instagram" title="Instagram">ig</a>
-            <a href="https://www.google.com/maps/place/Pek%C3%A1re%C5%88+Alea/@49.2222698,18.738195,17z" target="_blank" aria-label="Google Maps" title="Google Maps">g</a>
-        </div>
-    
-<section id="map-section" style="padding:60px 20px;background:#faf7f2;">
-    <div style="max-width:1200px;margin:auto;">
-        <h2 style="font-size:2rem;margin-bottom:20px;text-align:center;">
-            Nájdete nás v centre Žiliny
-        </h2>
-
-        <iframe
-            src="https://www.google.com/maps?q=Horný+Val+42/22,+010+01+Žilina,+Slovakia&output=embed"
-            width="100%"
-            height="450"
-            style="border:0;border-radius:18px;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
     </div>
-</section>
-
-</footer>
-
 
     <script>
-    // ══════════════════════════════════════
-    //  MENU DATA
-    // ══════════════════════════════════════
-    const menuData = {
-        sladke: [
+        // Sample menu data
+        const menuData = [
             {
-                id: 'sladke-1',
-                name: 'Punčová guľa',
-                desc: 'Klasická punčová guľa obalená v čokoláde s jemnou rumovou arómou. Na 100g.',
-                price: 1.20,
-                badge: 'Bestseller',
-                img: 'https://images.unsplash.com/photo-1551529834-525807d6b4f3?q=80&w=600'
+                id: 1,
+                name: "Tradičný Chlieb",
+                category: "chleby",
+                description: "Klasický chlieb pečený v drovenej peci",
+                price: "2.50",
+                image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=300",
+                badge: "Bestseller"
             },
             {
-                id: 'sladke-2',
-                name: 'Buchta tvaroh',
-                desc: 'Mäkká, vláčna buchta plnená jemným tvarohovým krémom. Na 130g.',
-                price: 1.20,
-                img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=600'
+                id: 2,
+                name: "Žitný Chlieb",
+                category: "chleby",
+                description: "Tmavý chlieb s bohatým zámesením",
+                price: "3.00",
+                image: "https://images.unsplash.com/photo-1568958123761-dcdcf48f5c83?q=80&w=300",
+                badge: "Nový"
             },
             {
-                id: 'sladke-3',
-                name: 'Buchta čoko',
-                desc: 'Nadýchaná buchta s bohatou čokoládovou náplňou. Ideálna pre milovníkov čokolády. Na 130g.',
-                price: 1.20,
-                img: 'https://images.unsplash.com/photo-1586788680434-30d324b2d46f?q=80&w=600'
+                id: 3,
+                name: "Biely Chlieb",
+                category: "chleby",
+                description: "Svetlý a krehký chlieb",
+                price: "2.00",
+                image: "https://images.unsplash.com/photo-1524824786289-69613514b01d?q=80&w=300",
+                badge: ""
             },
             {
-                id: 'sladke-4',
-                name: 'Buchta mak',
-                desc: 'Tradičná buchta s makovou náplňou podľa babičkiného receptu. Na 130g.',
-                price: 1.20,
-                img: 'https://images.unsplash.com/photo-1509365465985-25d11c17e812?q=80&w=600'
+                id: 4,
+                name: "Kváskový Chlieb",
+                category: "chleby",
+                description: "Tradičný kváskový chlieb s históriou",
+                price: "3.50",
+                image: "https://images.unsplash.com/photo-1574080691172-89e5eca1d12a?q=80&w=300",
+                badge: "Bestseller"
             },
             {
-                id: 'sladke-5',
-                name: 'Buchta višňa',
-                desc: 'Jemná buchta s kyslastou višňovou náplňou — dokonalá kombinácia sladkého a kyslého. Na 130g.',
-                price: 1.20,
-                img: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=600'
+                id: 5,
+                name: "Kváskový Škvarkový Chlieb",
+                category: "chleby",
+                description: "S lokálnymi švarkmi",
+                price: "4.00",
+                image: "https://images.unsplash.com/photo-1599599810694-cd308461c3f0?q=80&w=300",
+                badge: "Nový"
             },
             {
-                id: 'sladke-6',
-                name: 'Závin orechový',
-                desc: 'Ručne rolovaný závin plnený mletými vlašskými orechmi so škoricou a cukrom. Na 130g.',
-                price: 1.20,
-                img: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?q=80&w=600'
+                id: 6,
+                name: "Pšeničný Chlieb",
+                category: "chleby",
+                description: "Ľahký pšeničný chlieb",
+                price: "2.50",
+                image: "https://images.unsplash.com/photo-1599599810982-e4b9b2b5d3f5?q=80&w=300",
+                badge: ""
             },
             {
-                id: 'sladke-7',
-                name: 'Závin makový',
-                desc: 'Klasický slovenský makový závin z krehkého cesta s hustou makovou náplňou. Na 130g.',
-                price: 1.20,
-                img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=600'
+                id: 7,
+                name: "Syrečky",
+                category: "peklo",
+                description: "Slaný chlebíky s syrom",
+                price: "1.50",
+                image: "https://images.unsplash.com/photo-1555939594-58d7cb561cea?q=80&w=300",
+                badge: "Populárne"
             },
             {
-                id: 'sladke-8',
-                name: 'Závin čoko-kokos',
-                desc: 'Neodolateľný závin s kombináciou čokolády a kokosu — exotická pochúťka z pece. Na 130g.',
-                price: 1.20,
-                img: 'https://images.unsplash.com/photo-1586788680434-30d324b2d46f?q=80&w=600'
+                id: 8,
+                name: "Cibuľovníky",
+                category: "peklo",
+                description: "Slané pecivo s cibuľou a kmínom",
+                price: "1.20",
+                image: "https://images.unsplash.com/photo-1515037893149-f3051b3b3b6f?q=80&w=300",
+                badge: ""
             },
             {
-                id: 'sladke-9',
-                name: 'Slimák škoricový',
-                desc: 'Zlatistý škoricový slimák s maslom — náš variant slávneho švédskeho "Kanelbulle". Na 130g.',
-                price: 1.40,
-                badge: 'Obľúbené',
-                img: 'cinnamon.jpg'
+                id: 9,
+                name: "Parenice",
+                category: "peklo",
+                description: "Tradičné parenice s maslom a cukrom",
+                price: "2.00",
+                image: "https://images.unsplash.com/photo-1535920527894-b400b62fe5b2?q=80&w=300",
+                badge: "Bestseller"
             },
             {
-                id: 'sladke-10',
-                name: 'Lístkový závin jablko',
-                desc: 'Chrumkavé lístkové cesto ukrývajúce šťavnaté jablká so škoricou. Na 100g.',
-                price: 1.40,
-                img: 'https://images.unsplash.com/photo-1529765860038-41ccf3ce6519?q=80&w=600'
+                id: 10,
+                name: "Croissant",
+                category: "peklo",
+                description: "Francúzsky croissant s maslom",
+                price: "1.80",
+                image: "https://images.unsplash.com/photo-1530587191325-3db8b3be5f3f?q=80&w=300",
+                badge: ""
             },
             {
-                id: 'sladke-11',
-                name: 'Lístkový závin višňa',
-                desc: 'Ľahké lístkové cesto s kyslo-sladkou višňovou náplňou. Pečené každé ráno. Na 100g.',
-                price: 1.40,
-                img: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=600'
+                id: 11,
+                name: "Kakaové Tyčinky",
+                category: "dobroty",
+                description: "Sladké tyčinky pokryté kakaom",
+                price: "1.00",
+                image: "https://images.unsplash.com/photo-1599599810395-e88ded20dae0?q=80&w=300",
+                badge: "Nový"
             },
             {
-                id: 'sladke-12',
-                name: 'Lístkový závin orech',
-                desc: 'Zlatistý závin z lístkového cesta plnený orechovým krémom. Na 100g.',
-                price: 1.40,
-                img: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?q=80&w=600'
-            },
-            {
-                id: 'sladke-13',
-                name: 'Lístkový závin mak',
-                desc: 'Chrumkavé lístkové cesto s tradičnou makovou náplňou. Na 100g.',
-                price: 1.40,
-                img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=600'
-            },
-            {
-                id: 'sladke-14',
-                name: 'Srdce tvaroh',
-                desc: 'Pečivo v tvare srdca s jemnou tvarohovou náplňou. Romantická pochúťka na každý deň. Na 120g.',
-                price: 1.00,
-                img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=600'
-            },
-            {
-                id: 'sladke-15',
-                name: 'Srdce višňa',
-                desc: 'Srdcové pečivo plnené sladko-kyslými višňami. Krásny darček aj pre seba. Na 120g.',
-                price: 1.00,
-                img: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=600'
+                id: 12,
+                name: "Medovníčky",
+                category: "dobroty",
+                description: "Tradičné medovníčky",
+                price: "0.80",
+                image: "https://images.unsplash.com/photo-1599599810560-be21e2c9d8dc?q=80&w=300",
+                badge: ""
             }
-        ],
-        croissanty: [
-            {
-                id: 'croi-1',
-                name: 'Malý čoko croissant',
-                desc: 'Miniatúrny croissant s čokoládovou náplňou — ideálny na ranné pohostenie. Na 50g.',
-                price: 0.80,
-                img: 'https://images.unsplash.com/photo-1623334044303-241021148842?q=80&w=600'
-            },
-            {
-                id: 'croi-2',
-                name: 'Croissant puding',
-                desc: 'Klasický zlatistý croissant plnený jemným vanilkovým pudingom. Na 100g.',
-                price: 1.40,
-                img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600'
-            },
-            {
-                id: 'croi-3',
-                name: 'Croissant biela čokoláda',
-                desc: 'Maslový croissant s krémom z bielej čokolády — jemný a luxusný. Na 100g.',
-                price: 1.60,
-                img: 'https://images.unsplash.com/photo-1623334044303-241021148842?q=80&w=600'
-            },
-            {
-                id: 'croi-4',
-                name: 'Croissant pistácia',
-                desc: 'Náš najobľúbenejší croissant s bohatým pistáciovým krémom a chrumkavými pistáciami. Na 100g.',
-                price: 1.60,
-                badge: 'Bestseller',
-                img: 'pistachio-croissant.jpg'
-            },
-            {
-                id: 'croi-5',
-                name: 'Croissant citrón',
-                desc: 'Svieži croissant s citrónovým krémom — dokonalá rovnováha sladkého a kyslého. Na 100g.',
-                price: 1.60,
-                img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600'
-            },
-            {
-                id: 'croi-6',
-                name: 'Croissant karamel',
-                desc: 'Croissant s karamelovou náplňou a posypom morskej soli — sladko-slaná dokonalosť. Na 100g.',
-                price: 1.60,
-                badge: 'Novinka',
-                img: 'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?q=80&w=600'
-            }
-        ],
-        slane: [
-            {
-                id: 'slane-1',
-                name: 'Pizza slimák',
-                desc: 'Chrumkavý slimák s paradajkovou omáčkou, syrom a šunkou — pizza v novom šate.',
-                price: 2.00,
-                badge: 'Obľúbené',
-                img: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=600'
-            },
-            {
-                id: 'slane-2',
-                name: 'Slaná tyčinka malá',
-                desc: 'Chrumkavá slaná tyčinka posypaná hrubozrnnou soľou — klasická slovenská pochúťka.',
-                price: 0.80,
-                img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=600'
-            },
-            {
-                id: 'slane-3',
-                name: 'Tyčinka slaná syr veľká',
-                desc: 'Veľká slaná tyčinka so syrom — výdatné pečivo ideálne na cesty. Na 80g.',
-                price: 0.75,
-                img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=600'
-            },
-            {
-                id: 'slane-4',
-                name: 'Syrový praclík',
-                desc: 'Tradičný praclík pokrytý roztaveným syrom — chrumkavý a slaný. Pečený denne.',
-                price: 1.30,
-                img: 'pretzel.jpg'
-            },
-            {
-                id: 'slane-5',
-                name: 'Dlhý praclík',
-                desc: 'Klasický dlhý praclík s hrubozrnnou soľou. Chrumkavý zvonku, mäkký vnútri.',
-                price: 0.80,
-                img: 'pretzel.jpg'
-            },
-            {
-                id: 'slane-6',
-                name: 'Burek veľký syr-tvaroh',
-                desc: 'Balkánsky špeciál z vrstvených filo listov plnený zmesou syra a tvarohu. Na 200g.',
-                price: 1.80,
-                img: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600'
-            },
-            {
-                id: 'slane-7',
-                name: 'Burek veľký mäso',
-                desc: 'Šťavnatý burek z filo cesta s pikantnou mäsovou náplňou. Domáci recept. Na 200g.',
-                price: 1.80,
-                img: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600'
-            },
-            {
-                id: 'slane-8',
-                name: 'Párok v rožku lístkové',
-                desc: 'Šťavnatý párok zabalený v zlatistom lístkovom cestíčku — rýchla a chutná voľba.',
-                price: 1.50,
-                img: 'https://images.unsplash.com/photo-1619740455993-9169e784cec4?q=80&w=600'
-            },
-            {
-                id: 'slane-9',
-                name: 'Párok syr horčica',
-                desc: 'Párok s roztaveným syrom a horčicou v krehkom pečive. Zaručená klasika. Na 90g.',
-                price: 1.40,
-                img: 'https://images.unsplash.com/photo-1619740455993-9169e784cec4?q=80&w=600'
-            },
-            {
-                id: 'slane-10',
-                name: 'Párok syr v žemli',
-                desc: 'Párok so syrom v mäkkej žemli — jednoduchý obed alebo desiata. Na 110g.',
-                price: 1.40,
-                img: 'https://images.unsplash.com/photo-1619740455993-9169e784cec4?q=80&w=600'
-            },
-            {
-                id: 'slane-11',
-                name: 'Rožok s párkom',
-                desc: 'Klasický rožok s párkom — obľúbená rýchla desiata pre celú rodinu. Na 110g.',
-                price: 1.20,
-                img: 'https://images.unsplash.com/photo-1619740455993-9169e784cec4?q=80&w=600'
-            },
-            {
-                id: 'slane-12',
-                name: 'Slimák syr',
-                desc: 'Zlatistý syrový slimák z kváskového cesta s roztaveným syrom vnútri. Na 130g.',
-                price: 1.40,
-                img: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=600'
-            },
-            {
-                id: 'slane-13',
-                name: 'Pizza',
-                desc: 'Celá okrúhla pizza alebo veľké plátky s paradajkovou omáčkou a syrom. Na 250g.',
-                price: 1.90,
-                img: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=600'
-            },
-            {
-                id: 'slane-14',
-                name: 'Paprča',
-                desc: 'Špeciálne tvarované slané pečivo — chrumkavé, posypané soľou a rascou. Na 220g.',
-                price: 1.90,
-                img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=600'
-            }
-        ],
-        chlieb: [
-            {
-                id: 'chlieb-1',
-                name: 'Zemiakový chlieb',
-                desc: 'Výnimočne vláčny chlieb so zemiakmi — neuveriteľne jemná strúhanka, ktorá dlho vydrží čerstvá.',
-                price: 2.20,
-                badge: 'Bestseller',
-                img: 'fresh-bread.jpg'
-            },
-            {
-                id: 'chlieb-2',
-                name: 'Chlieb celozrnný',
-                desc: 'Výživný celozrnný chlieb plný vlákniny a semiačok. Zdravá voľba na každý deň. Na 500g.',
-                price: 1.90,
-                img: 'fresh-bread.jpg'
-            },
-            {
-                id: 'chlieb-3',
-                name: 'Chlieb domáci',
-                desc: 'Tradičný domáci chlieb podľa overených receptúr — mäkká kôrka, nadýchaný stred. Na 500g.',
-                price: 1.20,
-                img: 'fresh-bread.jpg'
-            },
-            {
-                id: 'chlieb-4',
-                name: 'Chlieb biely malý',
-                desc: 'Klasický biely chlieb, jemný a vláčny. Ideálny na sendviče alebo ako príloha. Na 500g.',
-                price: 1.20,
-                img: 'fresh-bread.jpg'
-            },
-            {
-                id: 'chlieb-5',
-                name: 'Žemľa',
-                desc: 'Čerstvá mäkká žemľa pečená každé ráno. Ideálna na raňajky alebo desiatu. Na 60g.',
-                price: 0.15,
-                img: 'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?q=80&w=600'
-            },
-            {
-                id: 'chlieb-6',
-                name: 'Rožok',
-                desc: 'Klasický chrumkavý rožok — základ každých slovenských raňajok. Pečený od rána. Na 50g.',
-                price: 0.15,
-                img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600'
-            }
-        ]
-    };
+        ];
 
-    // ══════════════════════════════════════
-    //  CART STATE
-    // ══════════════════════════════════════
-    let cart = {};
+        let cart = [];
 
-    function getItemById(id) {
-        for (const cat of Object.values(menuData)) {
-            const found = cat.find(i => i.id === id);
-            if (found) return found;
-        }
-        return null;
-    }
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMenuPreview();
+            renderMenuCategories();
+        });
 
-    
-function handleAddToCart(id, btn) {
-    addToCart(id);
-
-    if (!btn) return;
-
-    btn.innerHTML = '✓ Pridané';
-    btn.classList.add('added');
-
-    setTimeout(() => {
-        btn.innerHTML = `
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 5v14M5 12h14"/>
-            </svg>
-            Pridať
-        `;
-        btn.classList.remove('added');
-    }, 1500);
-}
-
-
-function addToCart(id) {
-        cart[id] = (cart[id] || 0) + 1;
-        updateCartUI();
-        bumpCount();
-    }
-
-    function changeQty(id, delta) {
-        cart[id] = (cart[id] || 0) + delta;
-        if (cart[id] <= 0) delete cart[id];
-        updateCartUI();
-    }
-
-    function removeFromCart(id) {
-        delete cart[id];
-        updateCartUI();
-    }
-
-    function getCartTotal() {
-        return Object.entries(cart).reduce((sum, [id, qty]) => {
-            const item = getItemById(id);
-            return item ? sum + item.price * qty : sum;
-        }, 0);
-    }
-
-    function getCartCount() {
-        return Object.values(cart).reduce((s, v) => s + v, 0);
-    }
-
-    function formatPrice(n) {
-        return n.toFixed(2).replace('.', ',') + ' €';
-    }
-
-    function updateCartUI() {
-        const count = getCartCount();
-        document.getElementById('cartCount').textContent = count;
-
-        // Cart page
-        const empty = document.getElementById('cartEmpty');
-        const wrap = document.getElementById('cartItemsWrap');
-
-        if (count === 0) {
-            empty.style.display = 'block';
-            wrap.style.display = 'none';
-            return;
-        }
-
-        empty.style.display = 'none';
-        wrap.style.display = 'block';
-
-        const itemsEl = document.getElementById('cartItems');
-        itemsEl.innerHTML = '';
-
-        Object.entries(cart).forEach(([id, qty]) => {
-            const item = getItemById(id);
-            if (!item) return;
-            const row = document.createElement('div');
-            row.className = 'cart-item';
-            row.innerHTML = `
-                <img class="cart-item-img" src="${item.img}" alt="${item.name}">
-                <div>
-                    <div class="cart-item-name">${item.name}</div>
-                    <div class="cart-item-price">${formatPrice(item.price)} / ks</div>
+        function renderMenuPreview() {
+            const preview = document.getElementById('home-menu-preview');
+            preview.innerHTML = menuData.slice(0, 6).map(item => `
+                <div class="menu-card" onclick="showPage('menu')">
+                    <img src="${item.image}" alt="${item.name}" class="menu-card-img">
+                    <div class="menu-card-body">
+                        ${item.badge ? `<span class="menu-card-tag">${item.badge}</span>` : ''}
+                        <h3>${item.name}</h3>
+                        <p>${item.description}</p>
+                    </div>
                 </div>
-                <div class="cart-item-controls">
-                    <button class="qty-btn" onclick="changeQty('${id}', -1)">−</button>
-                    <span class="qty-display">${qty}</span>
-                    <button class="qty-btn" onclick="changeQty('${id}', 1)">+</button>
-                    <button class="remove-btn" onclick="removeFromCart('${id}')" title="Odstrániť">✕</button>
-                </div>
-            `;
-            itemsEl.appendChild(row);
-        });
-
-        const total = getCartTotal();
-        document.getElementById('subtotal').textContent = formatPrice(total);
-        document.getElementById('totalPrice').textContent = formatPrice(total);
-    }
-
-    function bumpCount() {
-        const el = document.getElementById('cartCount');
-        el.classList.remove('bump');
-        void el.offsetWidth;
-        el.classList.add('bump');
-        setTimeout(() => el.classList.remove('bump'), 300);
-    }
-
-    // ══════════════════════════════════════
-    //  RENDER MENU ITEMS
-    // ══════════════════════════════════════
-    function buildItemCard(item) {
-        // Embed the user's video link as a clickable element right under the title
-        const videoHtml = item.videoLink ? `<a href="${item.videoLink}" target="_blank" style="font-size:0.65rem; color:var(--gold); text-decoration:none; margin-bottom: 12px; display:inline-block; font-weight: 500; letter-spacing: 1px;">▶ POZRIEŤ VIDEO</a>` : '';
-
-        const card = document.createElement('div');
-        card.className = 'menu-item';
-        card.innerHTML = `
-            <div class="menu-item-img-wrap">
-                <img class="menu-item-img" src="${item.img}" alt="${item.name}" loading="lazy">
-                ${item.badge ? `<span class="menu-item-badge">${item.badge}</span>` : ''}
-            </div>
-            <div class="menu-item-body">
-                <h3>${item.name}</h3>
-                ${videoHtml}
-                <p>${item.desc}</p>
-                <div class="menu-item-footer">
-                    <span class="menu-item-price">${formatPrice(item.price)}</span>
-                    <button class="add-to-order" id="btn-${item.id}" onclick="handleAddToCart('${item.id}', this)">
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-                        Pridať
-                    </button>
-                </div>
-            </div>
-        `;
-        return card;
-    }
-
-    function renderMenu() {
-        // Render individual category grids
-        ['chlieb', 'pecivo', 'sladke', 'speciality'].forEach(cat => {
-            const grid = document.getElementById(`grid-${cat}`);
-            if (grid) {
-                grid.innerHTML = '';
-                menuData[cat].forEach(item => grid.appendChild(buildItemCard(item)));
-            }
-        });
-
-        // Render "All" category with sections
-        const allCat = document.getElementById('cat-all');
-        allCat.innerHTML = '';
-
-        const catMeta = {
-            chlieb: 'Chlieb',
-            pecivo: 'Ranné pečivo',
-            sladke: 'Sladká sekcia',
-            speciality: 'Špeciality'
-        };
-
-        Object.entries(menuData).forEach(([cat, items]) => {
-            const section = document.createElement('div');
-            section.className = 'all-category-section';
-            section.innerHTML = `<h4>${catMeta[cat]}</h4>`;
-            const grid = document.createElement('div');
-            grid.className = 'menu-items-grid';
-            items.forEach(item => grid.appendChild(buildItemCard(item)));
-            section.appendChild(grid);
-            allCat.appendChild(section);
-        });
-    }
-
-    // ══════════════════════════════════════
-    //  MENU TABS
-    // ══════════════════════════════════════
-    document.querySelectorAll('.menu-tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-            document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.menu-category').forEach(c => c.classList.remove('active'));
-            tab.classList.add('active');
-            document.getElementById(`cat-${tab.dataset.cat}`).classList.add('active');
-        });
-    });
-
-    // ══════════════════════════════════════
-    //  PAGE ROUTING
-    // ══════════════════════════════════════
-    function goTo(page) {
-        // Hide all pages
-        document.querySelectorAll('.page').forEach(p => {
-            p.classList.remove('active');
-        });
-
-        // Show target
-        const target = document.getElementById(`page-${page}`);
-        if (target) {
-            target.classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            `).join('');
         }
 
-        // Update nav active state
-        document.querySelectorAll('nav ul li a').forEach(a => a.classList.remove('active'));
-        const navLink = document.getElementById(`nav-${page}`);
-        if (navLink) navLink.classList.add('active');
+        function renderMenuCategories() {
+            const categories = {
+                'all': menuData,
+                'chleby': menuData.filter(item => item.category === 'chleby'),
+                'peklo': menuData.filter(item => item.category === 'peklo'),
+                'dobroty': menuData.filter(item => item.category === 'dobroty')
+            };
 
-        // Nav style
-        const nav = document.getElementById('mainNav');
-        nav.classList.remove('dark-mode', 'scrolled');
-        if (page === 'home') {
-            nav.classList.remove('scrolled');
-        } else {
-            nav.classList.add('scrolled');
-        }
-
-        // Re-run reveal animations
-        setTimeout(() => {
-            document.querySelectorAll(`#page-${page} .reveal`).forEach(el => {
-                el.classList.add('visible');
+            Object.keys(categories).forEach(cat => {
+                const container = document.getElementById(`menu-category-${cat}`);
+                if (container) {
+                    container.innerHTML = renderMenuItems(categories[cat]);
+                }
             });
-        }, 100);
-
-        // Update cart UI when navigating to order page
-        if (page === 'order') updateCartUI();
-    }
-
-    // ══════════════════════════════════════
-    //  SCROLL BEHAVIOUR (home page nav)
-    // ══════════════════════════════════════
-    window.addEventListener('scroll', () => {
-        const nav = document.getElementById('mainNav');
-        const homePage = document.getElementById('page-home');
-        if (homePage && homePage.classList.contains('active')) {
-            nav.classList.toggle('scrolled', window.scrollY > 60);
         }
-    });
 
-    // ══════════════════════════════════════
-    //  SCROLL REVEAL OBSERVER
-    // ══════════════════════════════════════
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                revealObserver.unobserve(entry.target);
+        function renderMenuItems(items) {
+            if (items.length === 0) return '<p>Žiadne položky v tejto kategórii</p>';
+
+            return items.map(item => `
+                <div class="menu-item">
+                    <div class="menu-item-img-wrap">
+                        <img src="${item.image}" alt="${item.name}" class="menu-item-img">
+                        ${item.badge ? `<span class="menu-item-badge">${item.badge}</span>` : ''}
+                    </div>
+                    <div class="menu-item-body">
+                        <h3>${item.name}</h3>
+                        <p>${item.description}</p>
+                        <div class="menu-item-footer">
+                            <button class="add-to-order" onclick="addToCart(${item.id}, '${item.name}', ${item.price}, '${item.image}')">
+                                + Pridať
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(id, name, price, image) {
+            const existingItem = cart.find(item => item.id === id);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, name, price, image, quantity: 1 });
             }
-        });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-    // ══════════════════════════════════════
-    //  HIGHLIGHT TODAY IN HOURS TABLE
-    // ══════════════════════════════════════
-    const dayMap = ['row-sun','row-mon','row-tue','row-wed','row-thu','row-fri','row-sat'];
-    const todayRow = document.getElementById(dayMap[new Date().getDay()]);
-    if (todayRow) todayRow.classList.add('today');
-
-    // Set default date for order form to tomorrow
-    const orderDateInput = document.getElementById('orderDate');
-    if (orderDateInput) {
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        orderDateInput.min = tomorrow.toISOString().split('T')[0];
-        orderDateInput.value = tomorrow.toISOString().split('T')[0];
-    }
-
-    // ══════════════════════════════════════
-    //  ORDER FORM SUBMISSION
-    // ══════════════════════════════════════
-    function submitOrder() {
-        const name = document.getElementById('orderName').value.trim();
-        const phone = document.getElementById('orderPhone').value.trim();
-        const date = document.getElementById('orderDate').value;
-        const time = document.getElementById('orderTime').value;
-
-        if (!name || !phone || !date || !time) {
-            alert('Prosím vyplňte všetky povinné polia (meno, telefón, dátum a čas vyzdvihnutia).');
-            return;
+            updateCartCount();
+            renderCart();
         }
 
-        if (getCartCount() === 0) {
-            alert('Váš košík je prázdny. Pridajte prosím aspoň jeden produkt.');
-            return;
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = count;
+            
+            if (count > 0) {
+                document.getElementById('cart-count').classList.add('bump');
+                setTimeout(() => {
+                    document.getElementById('cart-count').classList.remove('bump');
+                }, 300);
+            }
         }
 
-        document.getElementById('orderFormWrap').style.display = 'none';
-        document.getElementById('orderSuccess').classList.add('show');
-    }
+        function renderCart() {
+            const cartContainer = document.getElementById('cart-items');
 
-    function resetOrder() {
-        cart = {};
-        updateCartUI();
-        document.getElementById('orderFormWrap').style.display = 'block';
-        document.getElementById('orderSuccess').classList.remove('show');
-        document.getElementById('orderName').value = '';
-        document.getElementById('orderPhone').value = '';
-        document.getElementById('orderEmail').value = '';
-        document.getElementById('orderNote').value = '';
-        document.getElementById('orderTime').value = '';
-    }
+            if (cart.length === 0) {
+                cartContainer.innerHTML = `
+                    <div class="cart-empty">
+                        <div class="cart-empty-icon">🛒</div>
+                        <p>Váš nákupný kôš je prázdny</p>
+                        <a href="#" onclick="showPage('menu')" class="btn-primary">Pokračovať v nákupe</a>
+                    </div>
+                `;
+                updateTotals();
+                return;
+            }
 
-    // ══════════════════════════════════════
-    //  CONTACT FORM
-    // ══════════════════════════════════════
-    function submitContact() {
-        const name = document.getElementById('cName').value.trim();
-        const contact = document.getElementById('cContact').value.trim();
-        const msg = document.getElementById('cMessage').value.trim();
-        if (!name || !contact || !msg) {
-            alert('Prosím vyplňte meno, kontakt a správu.');
-            return;
+            cartContainer.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                    <div>
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price} € za kus</div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <input type="number" class="qty-input" value="${item.quantity}" min="1" onchange="updateQuantity(${item.id}, this.value)">
+                        <button class="remove-from-cart" onclick="removeFromCart(${item.id})">✕</button>
+                    </div>
+                </div>
+            `).join('');
+
+            updateTotals();
         }
-        document.getElementById('contactSuccess').style.display = 'block';
-        document.getElementById('cName').value = '';
-        document.getElementById('cContact').value = '';
-        document.getElementById('cSubject').value = '';
-        document.getElementById('cMessage').value = '';
-        setTimeout(() => {
-            document.getElementById('contactSuccess').style.display = 'none';
-        }, 6000);
-    }
 
-    // ══════════════════════════════════════
-    //  MOBILE NAV
-    // ══════════════════════════════════════
-    function openMobileNav() {
-        document.getElementById('mobileNav').classList.add('open');
-    }
-    function closeMobileNav() {
-        document.getElementById('mobileNav').classList.remove('open');
-    }
+        function updateQuantity(id, quantity) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.quantity = Math.max(1, parseInt(quantity) || 1);
+                updateCartCount();
+                renderCart();
+            }
+        }
 
-    // ══════════════════════════════════════
-    //  INIT
-    // ══════════════════════════════════════
-    renderMenu();
-    updateCartUI();
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartCount();
+            renderCart();
+        }
 
+        function updateTotals() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const delivery = cart.length > 0 ? 5 : 0;
+            const total = subtotal + delivery;
+
+            document.getElementById('subtotal').textContent = subtotal.toFixed(2) + ' €';
+            document.getElementById('total').textContent = total.toFixed(2) + ' €';
+            document.getElementById('checkout-btn').disabled = cart.length === 0;
+        }
+
+        function filterCategory(category) {
+            document.querySelectorAll('.menu-category').forEach(el => el.classList.remove('active'));
+            document.getElementById(`menu-category-${category}`).classList.add('active');
+
+            document.querySelectorAll('.menu-tab').forEach(el => el.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function showPage(pageName) {
+            document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+            document.getElementById(`page-${pageName}`).classList.add('active');
+
+            document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+            const activeLink = document.querySelector(`a[href="#${pageName}"]`);
+            if (activeLink) activeLink.classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        function checkout() {
+            if (cart.length === 0) return;
+            alert('Objednávka odoslaná! Ďakujeme za vašu objednávku.');
+            cart = [];
+            updateCartCount();
+            renderCart();
+        }
+
+        function toggleMenu() {
+            const nav = document.getElementById('nav');
+            nav.classList.toggle('menu-open');
+        }
     </script>
-    <a href="https://wa.me/421908790850?text=Dobr%C3%BD%20de%C5%88%2C%20m%C3%A1m%20z%C3%A1ujem%20o%20objedn%C3%A1vku%20z%20Pek%C3%A1rne%20Alea." target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp objednávka">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    </a>
-
-<script>
-window.addEventListener('error', function(e) {
-    console.warn('Handled runtime error:', e.message);
-});
-document.addEventListener('DOMContentLoaded', () => {
-    document.body.style.opacity = '1';
-});
-</script>
-
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-
-    // Lazy loading
-    document.querySelectorAll('img').forEach(img => {
-        img.loading = 'lazy';
-    });
-
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if(target){
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
-
-    // Cart persistence
-    const cart = JSON.parse(localStorage.getItem('alea-cart') || '[]');
-
-    window.saveCart = function(data){
-        localStorage.setItem('alea-cart', JSON.stringify(data));
-    };
-
-    // WhatsApp integration fallback
-    const waButtons = document.querySelectorAll('a[href*="wa.me"]');
-
-    waButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            console.log('Opening WhatsApp order');
-        });
-    });
-
-    // Image fallback
-    document.querySelectorAll('img').forEach(img => {
-        img.onerror = function() {
-            this.style.opacity = '0.5';
-        }
-    });
-
-});
-</script>
-
 </body>
 </html>
